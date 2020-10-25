@@ -1,0 +1,13 @@
+pytsk/
+__pycache__/
+*.pyc
+images/
+.vscode/
+slacks/
+libewf/
+libewf-legacy/
+ewf_ooold.py
+*.csv
+ntfsdoc-0.6.zip
+old_git/
+images.py
