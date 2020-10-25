@@ -1,4 +1,4 @@
-slack handler
+Slack_handler
 =============
 
 Slack_handler is a tool to dump file slacks in raw format and to extract file slack information to CSV format. 
@@ -8,6 +8,7 @@ The project is based on pytsk which is a python binding for the sleuthkit. For m
 
 ## Features
 
+Implemented so far
 - display file slacks in LATIN-1 or Hex encoding.
 - pretty print all found file slacks in a raw image.
 - dump all file slacks in the raw image to a directory 'slacks/'.
@@ -51,6 +52,7 @@ optional arguments:
   -c CSV, --csv CSV     Write file slacks information to a CSV file.
   -v, --version         show program's version number and exit
 ```
+.
 
 ## History 
 
