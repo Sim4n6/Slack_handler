@@ -6,6 +6,11 @@ Slack_handler is a tool to dump file slacks in raw format and to extract file sl
 A Sleuthkit tool to check the slack space at the end of each file in a filesystem.  For more information: http://www.sleuthkit.org
 The project is based on pytsk which is a python binding for the sleuthkit. For more information: https://github.com/py4n6/pytsk
 
+## History
+
+- Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
+- Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
+
 ## Features
 
 Implemented so far
@@ -52,9 +57,5 @@ optional arguments:
   -c CSV, --csv CSV     Write file slacks information to a CSV file.
   -v, --version         show program's version number and exit
 ```
-.
 
-## History 
 
-- Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
-- Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
