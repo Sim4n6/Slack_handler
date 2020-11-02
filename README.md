@@ -71,5 +71,6 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 - [ ] specify more informations about the slack being extracted (btw allocated size file and last cluster)
 - [ ] document ram slack and disk slack (mention no volume slack yet)
 - [ ] check again this [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600)
+- [ ] add dump directory name to argument "--dump"
 
 
