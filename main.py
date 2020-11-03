@@ -3,11 +3,10 @@
 #  Current updated version: 1.1 Date 15/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
 # **************************************************************************************
 
-# TODO squash git logs after at the end of the project in case you release it.
-
 import csv
 import sys
 import pprint
+from pathlib import Path
 from argparse import ArgumentParser
 
 import pyewf
@@ -130,7 +129,7 @@ if __name__ == '__main__':
                         help="Type of image. Currently supported options 'raw', 'ewf'.")
     parser.add_argument("-p", "--pprint", action='store_true',
                         help="Pretty printing of all file slack spaces found.")
-    parser.add_argument("-d", "--dump", action='store_false', default=False,
+    parser.add_argument("-d", "--dump", action='store', default="slacks",
                         help="Dump file slack spaces of each file in raw format.")
     parser.add_argument("-c", "--csv", action='store', default=None,
                         help="Write file slacks information to a CSV file.")
@@ -187,10 +186,11 @@ if __name__ == '__main__':
     # writing out file slack spaces into seperate files located in 'slacks' directory
     if arguments.dump:
         for s in all_slacks:
-            file_slack_name = f'slacks/' + s.get_s_name()
-            outfile = open(file_slack_name, 'wb')
-            outfile.write(s.get_s_bytes())
-            outfile.close()
+            cwd = Path().cwd() 
+            slack_dir = cwd.joinpath(arguments.dump)
+            slack_dir.mkdir(exist_ok=True)
+            file_slack_name = slack_dir / s.get_s_name()
+            file_slack_name.write_bytes(s.get_s_bytes())
 
     # print slack bytes with encoding 'latin-1', 'hex'.
     if arguments.encoding is not None:
