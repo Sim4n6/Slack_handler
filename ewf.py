@@ -1,3 +1,10 @@
+""" 
+**************************************************************************************.
+ Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>.
+ Current updated version: 1.1 Date 15/10/2020 by ALJI Mohamed <sim4n6@gmail.com>.
+**************************************************************************************. 
+"""
+
 import pytsk3
 
 

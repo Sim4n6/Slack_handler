@@ -1,7 +1,9 @@
-# **************************************************************************************
-#  Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
-#  Current updated version: 1.1 Date 15/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
-# **************************************************************************************
+""" 
+**************************************************************************************.
+ Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>.
+ Current updated version: 1.1 Date 15/10/2020 by ALJI Mohamed <sim4n6@gmail.com>.
+**************************************************************************************. 
+"""
 
 import csv
 import sys
@@ -17,7 +19,7 @@ import slack
 
 
 def is_fs_directory(f):
-    """ Checks if an inode is a filesystem directory. """
+    """ Check if an inode/addr is a filesystem directory."""
 
     try:
         return f.info.meta.type == pytsk3.TSK_FS_META_TYPE_DIR
@@ -26,7 +28,7 @@ def is_fs_directory(f):
 
 
 def is_fs_regfile(f):
-    """Checks if an inode is a regular file."""
+    """ Check if an inode/addr is a regular file."""
 
     try:
         return f.info.meta.type == pytsk3.TSK_FS_META_TYPE_REG
@@ -34,8 +36,8 @@ def is_fs_regfile(f):
         return False
 
 
-def processing(directory, queue, parent_names, all_slacks):
-    """ Iterate over all files in a all directories and call get_slack() for each file (none filesystem file) """
+def processing(directory, queue, parent_names):
+    """ Iterate over all files recursively in a all directories and call get_slack() on each file (only none filesystem metadata file). """
 
     queue.append(directory)
 
@@ -53,7 +55,7 @@ def processing(directory, queue, parent_names, all_slacks):
 
             # no recurse, to avoid circular loops:
             if d not in queue:
-                processing(d, queue, parent_names, all_slacks)
+                processing(d, queue, parent_names)
 
         elif is_fs_regfile(f):
             #print("/".join([dir_name for dir_name in parent_names]), f.info.name.name.decode('UTF-8'), sep='/')
@@ -69,7 +71,7 @@ def processing(directory, queue, parent_names, all_slacks):
 
 
 def print_partition_table(partition_table):
-    """ print the partition table """
+    """ Print the partition table. """
 
     print(f"\naddr, desc, starts(start*512) len", flush=True)
     for partition in partition_table:
@@ -84,8 +86,7 @@ def print_partition_table(partition_table):
 
 
 def get_slack(f):
-    """ Returns the file slack space of a single file. """
-
+    """ Return the file slack space of a single file. """
     # walk all clusteres allocated by this file as in NTFS filesystem
     # each file has several attributes which can allocate multiple clusters.
     for attr in f:
@@ -112,7 +113,8 @@ def get_slack(f):
             l_block, s_size, pytsk3.TSK_FS_ATTR_TYPE_DEFAULT, -1, pytsk3.TSK_FS_FILE_READ_FLAG_SLACK)
 
         # construct a slack object
-        s = slack.slack(s_size=s_size, s_bytes=data, s_partition_addr=partition.addr, s_name=f.info.name.name)
+        s = slack.slack(s_size=s_size, s_bytes=data,
+                        s_partition_addr=partition.addr, s_name=f.info.name.name)
         return s
 
 
@@ -164,7 +166,7 @@ if __name__ == '__main__':
             # open the filesystem with offset set to the absolute offset of the beginning of the NTFS partition.
             fs = pytsk3.FS_Info(img_handler, offset=(partition.start * 512))
 
-            # The Cluster Size (blocksize) can be chosen when the volume is formatted. 
+            # The Cluster Size (blocksize) can be chosen when the volume is formatted.
             blocksize = fs.info.block_size
             print("NTFS Cluster size: ", blocksize, "in bytes.")
 
@@ -172,11 +174,11 @@ if __name__ == '__main__':
             sector = fs.info.dev_bsize
             print("NTFS Sector size: ", sector, "in bytes.\n")
 
-            # open the directory node for recursiveness and enqueue all directories in image fs
+            # open the directory node for recursiveness and enqueue all directories in image fs from the root dir "/"
             queue_all_dirs = []
             directory = fs.open_dir(path="/")
-            processing(directory=directory, queue=queue_all_dirs,
-                       parent_names=['/'], all_slacks=all_slacks)
+            processing(directory=directory,
+                       queue=queue_all_dirs, parent_names=['/'])
 
     # pretty printing the all_slack files
     if arguments.pprint:
@@ -186,7 +188,7 @@ if __name__ == '__main__':
     # writing out file slack spaces into seperate files located in 'slacks' directory
     if arguments.dump:
         for s in all_slacks:
-            cwd = Path().cwd() 
+            cwd = Path().cwd()
             slack_dir = cwd.joinpath(arguments.dump)
             slack_dir.mkdir(exist_ok=True)
             file_slack_name = slack_dir / s.get_s_name()
@@ -205,7 +207,8 @@ if __name__ == '__main__':
     if arguments.csv is not None:
         csv_filename = arguments.csv
         with open(csv_filename, 'w', newline='') as csvfile:
-            fieldnames = ['slack filename', 'slack size', 'partition address', 'MD5', 'SHA1', 'parent dirs']
+            fieldnames = ['slack filename', 'slack size',
+                          'partition address', 'MD5', 'SHA1', 'parent dirs']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             writer.writeheader()
