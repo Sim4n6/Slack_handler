@@ -20,18 +20,20 @@ Implemented so far
 - write file slacks information to a CSV file. 
 - support 'raw' images (EWF format in progress)
 
-## Installation
+## Installation process for Debian/GNU
 
 - create virtualenv 
-- clone pytsk repository
-- update the repo (get libtsk)
-- build (libtsk)
-- install (which will install pytsk bindings) 
-- clone pyewf repository
-- /synclibs.sh & ./autogen.sh 
-- ./configure --enable-python
-- python setup.py build
-- python setup.py install 
+- clone pytsk [repository](https://github.com/py4n6/pytsk)
+- update the repo (get libtsk) ``python setup.py update``
+- build (libtsk) ``python setup.py build`` 
+
+
+- install (which will install pytsk bindings) ``python setup.py ìnstall`` 
+- clone pyewf repository 
+- ``./synclibs.sh`` & ``./autogen.sh`` 
+- ``./configure --enable-python``
+- ``python setup.py build``
+- ``python setup.py install`` 
 - check the installed modules `pip list`
 
 

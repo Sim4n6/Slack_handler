@@ -6,7 +6,6 @@
 """
 
 import csv
-import sys
 import pprint
 from pathlib import Path
 from argparse import ArgumentParser
@@ -73,7 +72,7 @@ def processing(directory, queue, parent_names):
 def print_partition_table(partition_table):
     """ Print the partition table. """
 
-    print(f"\naddr, desc, starts(start*512) len", flush=True)
+    print("\naddr, desc, starts(start*512) len", flush=True)
     for partition in partition_table:
         # partition.addr : Represents the partition number
         # parition.desc: NTFS (0x07)- Reprents the partition description including the type flag for NTFS
