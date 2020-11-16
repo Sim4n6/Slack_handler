@@ -26,11 +26,13 @@ Implemented so far
 - clone pytsk [repository](https://github.com/py4n6/pytsk)
 - update the repo (get libtsk) ``python setup.py update``
 - build (libtsk) ``python setup.py build`` 
+- install (which will install pytsk bindings) ``python setup.py ìnstall``
+- ``pip list`` now you should see pytsk installed if everything is ok 
+- clone pyewf [repository](https://github.com/libyal/libewf) 
+- ``./synclibs.sh`` : Script that synchronizes the local library dependencies
 
 
-- install (which will install pytsk bindings) ``python setup.py ìnstall`` 
-- clone pyewf repository 
-- ``./synclibs.sh`` & ``./autogen.sh`` 
+- ``./autogen.sh`` 
 - ``./configure --enable-python``
 - ``python setup.py build``
 - ``python setup.py install`` 
