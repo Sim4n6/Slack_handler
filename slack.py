@@ -2,10 +2,11 @@
 **************************************************************************************.
  Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>.
  Current updated version: 1.1 Date 15/10/2020 by ALJI Mohamed <sim4n6@gmail.com>.
-**************************************************************************************. 
+**************************************************************************************.
 """
 
 import hashlib
+
 
 class slack:
     """ A slack class for details about RAM slack and Disk slack of a single file. """
@@ -13,31 +14,31 @@ class slack:
     def __init__(self, **kwargs):
 
         # the slack size
-        if 's_size' in kwargs:
-            self.s_size = kwargs['s_size']
+        if "s_size" in kwargs:
+            self.s_size = kwargs["s_size"]
 
         # the slack bytes
-        if 's_bytes' in kwargs:
-            self.set_s_bytes(kwargs['s_bytes'])
+        if "s_bytes" in kwargs:
+            self.set_s_bytes(kwargs["s_bytes"])
 
         # the slack partition address
-        if 's_partition_addr' in kwargs:
-            self.s_partition_addr = kwargs['s_partition_addr']
+        if "s_partition_addr" in kwargs:
+            self.s_partition_addr = kwargs["s_partition_addr"]
 
         # the slack parent directories
-        if 's_dirs' in kwargs:
-            self.s_dirs = kwargs['s_dirs']
+        if "s_dirs" in kwargs:
+            self.s_dirs = kwargs["s_dirs"]
 
-        # the filename of the file associated with file slack
-        if 's_name' in kwargs:
-            self.s_name = kwargs['s_name'].decode('utf-8')
+        #  the filename of the file associated with file slack
+        if "s_name" in kwargs:
+            self.s_name = kwargs["s_name"].decode("utf-8")
 
     def __repr__(self):
         """ Return a simple string to represent the slack file details. """
         return f"* slack size: {self.s_size} (in bytes)\n partition address: {self.s_partition_addr}\n parent directories:{self.s_dirs}"
 
     def calc_hash_values(self):
-        """ Calculate the hash values (MD5/SHA1) depending on slack bytes. """ 
+        """ Calculate the hash values (MD5/SHA1) depending on slack bytes. """
         # if not empty
         if self.s_bytes is not None:
             md5hash = hashlib.md5()
@@ -52,12 +53,12 @@ class slack:
             self.s_sha1 = 0
 
     def print_hash_values(self):
-        """ Print the MD5 and SHA1 hash values. """ 
+        """ Print the MD5 and SHA1 hash values. """
         print("MD5 hash:", self.s_md5)
         print("SHA1 hash:", self.s_sha1)
 
     def get_s_md5(self):
-        """ Return the slack MD5 hash value. """ 
+        """ Return the slack MD5 hash value. """
         return self.s_md5
 
     def get_s_sha1(self):
@@ -90,7 +91,7 @@ class slack:
         return self.s_partition_addr
 
     def set_s_partition_addr(self, s_partition_addr):
-        """ Set the slack partition address. """ 
+        """ Set the slack partition address. """
         self.s_partition_addr = s_partition_addr
 
     def get_s_dirs(self):
