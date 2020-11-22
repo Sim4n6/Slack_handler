@@ -29,7 +29,7 @@ def test__cli_unfound_disk_img():
 def test__cli_print_partition_table():
     completedProcess = subprocess.run(["python", "main.py", "test_data/disk_img__scenario1_1__100_files.raw"], capture_output=True)
     assert b"addr, desc, starts(start*512) len" in completedProcess.stdout
-    # two partitions available
+    # two partitions available
     assert b"2, b'NTFS / exFAT (0x07)', 2048s(1048576) 8192" in completedProcess.stdout
     assert b"3, b'NTFS / exFAT (0x07)', 10240s(5242880) 8192" in completedProcess.stdout
     # partition 1

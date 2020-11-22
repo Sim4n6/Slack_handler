@@ -61,6 +61,7 @@ def processing(directory, queue, parent_names):
 
         elif is_fs_regfile(f):
             # print("/".join([dir_name for dir_name in parent_names]), f.info.name.name.decode('UTF-8'), sep='/')
+            print(f"getting slack from ..... {f.info.name.name.decode('UTF-8')}")
             s = get_slack(f)
             if s is not None:
                 s.set_s_dirs(parent_names)
@@ -108,8 +109,9 @@ def get_slack(f):
     # actual file data in the last block
     l_d_size = size % blocksize
 
-    #  multiple just de clusters (no slack)
-    if l_d_size == 0 or l_block <= 0:
+    #  multiple just clusters (no slack)
+    if l_d_size == 0:
+        print("here", l_d_size, l_block)
         return None
     else:
         # slack space size
@@ -182,7 +184,7 @@ if __name__ == "__main__":
         CWD = Path().cwd()
         if not CWD.joinpath(arguments.image[0]).exists():
             print(f"The disk image '{arguments.image[0]}' is not found.")
-            sys.exit()
+            sys.exit(1)
 
     # print versions
     print("SleuthKit lib version:", pytsk3.TSK_VERSION_STR, flush=True)
