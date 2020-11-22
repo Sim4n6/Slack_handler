@@ -9,6 +9,7 @@ import csv
 import pprint
 from pathlib import Path
 from argparse import ArgumentParser
+import sys
 
 import pyewf
 import pytsk3
@@ -91,8 +92,10 @@ def print_partition_table(partition_table):
 
 def get_slack(f):
     """ Return the file slack space of a single file. """
+
     # walk all clusteres allocated by this file as in NTFS filesystem
     # each file has several attributes which can allocate multiple clusters.
+    l_block = 0
     for attr in f:
         for run in attr:
             #  https://flatcap.org/linux-ntfs/ntfs/concepts/clusters.html
@@ -106,19 +109,20 @@ def get_slack(f):
     l_d_size = size % blocksize
 
     #  multiple just de clusters (no slack)
-    if l_d_size == 0:
+    if l_d_size == 0 or l_block <= 0:
         return None
     else:
         # slack space size
         s_size = blocksize - l_d_size
 
         # force reading the slack of the file by providing the FLAG_SLACK
+        print(l_block, s_size)
         data = f.read_random(
             l_block,
             s_size,
             pytsk3.TSK_FS_ATTR_TYPE_DEFAULT,
             -1,
-            pytsk3.TSK_FS_FILE_READ_FLAG_SLACK,
+            pytsk3.TSK_FS_FILE_READ_FLAG_SLACK
         )
 
         # construct a slack object
@@ -136,7 +140,7 @@ if __name__ == "__main__":
     # commands and arguments
     # argparse https://docs.python.org/3/library/argparse.html#module-argparse
     parser = ArgumentParser(description="Handle the file slack spaces.")
-    parser.add_argument("image", metavar="image", nargs=1, action="store")
+    parser.add_argument("image", metavar="disk image", nargs=1, action="store")
     parser.add_argument(
         "-e",
         "--encoding",
@@ -160,7 +164,7 @@ if __name__ == "__main__":
         "--dump",
         action="store",
         default="slacks",
-        help="Dump file slack spaces of each file in raw format.",
+        help="Dump file slack spaces of each file in raw format to '/DUMP/' directory.",
     )
     parser.add_argument(
         "-c",
@@ -173,6 +177,12 @@ if __name__ == "__main__":
     arguments = parser.parse_args()
 
     all_slacks = []
+
+    if arguments.image is not None:
+        CWD = Path().cwd()
+        if not CWD.joinpath(arguments.image[0]).exists():
+            print(f"The disk image '{arguments.image[0]}' is not found.")
+            sys.exit()
 
     # print versions
     print("SleuthKit lib version:", pytsk3.TSK_VERSION_STR, flush=True)
@@ -193,27 +203,32 @@ if __name__ == "__main__":
             print("Not Supported Yet !")
 
     # open the image volume for the partitions within it
-    partition_table = pytsk3.Volume_Info(img_handler)
-    print_partition_table(partition_table)
-    for partition in partition_table:
-        if b"NTFS" in partition.desc:
-            # open the filesystem with offset set to the absolute offset of
-            # the beginning of the NTFS partition.
-            fs = pytsk3.FS_Info(img_handler, offset=(partition.start * 512))
+    try:
+        partition_table = pytsk3.Volume_Info(img_handler)
+        print_partition_table(partition_table)
+    except OSError as e:
+        # there is no Volume in the image.
+        print("Maybe there is no Volume in the provided disk image.\n", e)
+    else:
+        for partition in partition_table:
+            if b"NTFS" in partition.desc:
+                # open the filesystem with offset set to the absolute offset of
+                # the beginning of the NTFS partition.
+                fs = pytsk3.FS_Info(img_handler, offset=(partition.start * 512))
 
-            #  The Cluster Size (blocksize) can be chosen when the volume is formatted.
-            blocksize = fs.info.block_size
-            print("NTFS Cluster size: ", blocksize, "in bytes.")
+                #  The Cluster Size (blocksize) can be chosen when the volume is formatted.
+                blocksize = fs.info.block_size
+                print("NTFS Cluster size: ", blocksize, "in bytes.")
 
-            # get the sector size
-            sector = fs.info.dev_bsize
-            print("NTFS Sector size: ", sector, "in bytes.\n")
+                # get the sector size
+                sector = fs.info.dev_bsize
+                print("NTFS Sector size: ", sector, "in bytes.\n")
 
-            # open the directory node for recursiveness and enqueue all
-            # directories in image fs from the root dir "/"
-            queue_all_dirs = []
-            directory = fs.open_dir(path="/")
-            processing(directory=directory, queue=queue_all_dirs, parent_names=["/"])
+                # open the directory node for recursiveness and enqueue all
+                # directories in image fs from the root dir "/"
+                queue_all_dirs = []
+                directory = fs.open_dir(path="/")
+                processing(directory=directory, queue=queue_all_dirs, parent_names=["/"])
 
     # pretty printing the all_slack files
     if arguments.pprint:
