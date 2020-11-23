@@ -11,6 +11,7 @@ TEST_DATA_DIR = CWD.joinpath("test_data")
     "disk_image, expected_result",
     [
         ("disk_img__scenario1_1__100_files.raw", True),
+        ("disk_img_ntfs-scenario6.1.raw", True),
         ("original.raw", False),
     ],
 )
