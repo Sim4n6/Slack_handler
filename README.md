@@ -70,7 +70,7 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 - [ ] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
 - [ ] add license for the testing image
 - [x] add a thank you section for awesome ppl
-- [ ] add tests
+- [ ] add tests <----
 - [x] add more docstrings to all methods and functions
 - [ ] specify more informations about the slack being extracted (btw allocated size file and last cluster)
 - [ ] document ram slack and disk slack (mention no volume slack yet)
@@ -80,4 +80,5 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 ## Special Thanks fly to 
 
 - [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial feedback on the tool.
+- [David Cowen](https://www.hecfblog.com/2015/02/automating-dfir-how-to-series-on.html) for the awesome serie of "How-to on programming using libtsk and python".
 - Anyone starring the github repository :) 
