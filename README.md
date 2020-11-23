@@ -45,7 +45,7 @@ Implemented so far
 To use the script type: 
 
 ```
-usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d] [-c CSV] [-v] image
+usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d /DUMP/] [-c CSV] [-v] image
 
 Handle the file slack spaces.
 
@@ -57,7 +57,7 @@ optional arguments:
   -e ENCODING, --encoding ENCODING Display slack space in LATIN-1 or Hex. Supported options 'latin-1', 'hex'.
   -t TYPE, --type TYPE  Type of image. Currently supported options 'raw', 'ewf'.
   -p, --pprint          Pretty printing of all file slack spaces found.
-  -d, --dump            Dump file slack spaces of each file in raw format.
+  -d, --dump            Dump file slack spaces of each file in raw format to '/DUMP/' directory.
   -c CSV, --csv CSV     Write file slacks information to a CSV file.
   -v, --version         show program's version number and exit
 ```
@@ -69,8 +69,7 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 
 - [ ] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
 - [ ] add license for the testing image
-- [x] add a thank you section for awesome ppl
-- [ ] add tests <----
+- [ ] add tests <---- (working on this...)
 - [x] add more docstrings to all methods and functions
 - [ ] specify more informations about the slack being extracted (btw allocated size file and last cluster)
 - [ ] document ram slack and disk slack (mention no volume slack yet)
