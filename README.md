@@ -14,12 +14,12 @@ The project is based on pytsk which is a python binding for the sleuthkit. For m
 
 ## Features
 
-Implemented so far
+Implemented so far:
 - display file slacks in LATIN-1 or Hex encoding.
-- pretty print all found file slacks in a raw image.
-- dump all file slacks in the raw image to a directory 'slacks/'.
-- write file slacks information to a CSV file. 
-- support 'raw' images (EWF format in progress)
+- pretty print all found file slack data in the provided raw disk image.
+- dump all file slacks in the raw disk image to a directory.
+- write file slacks details to a CSV file. 
+- support 'raw' images (EWF format in progress...)
 
 ## Installation process for Debian/GNU
 
@@ -77,6 +77,6 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 
 ## Special Thanks fly to 
 
-- [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial feedback on the tool.
+- [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial feedback on the little tool.
 - [David Cowen](https://www.hecfblog.com/2015/02/automating-dfir-how-to-series-on.html) for the awesome serie of "How-to on programming using libtsk and python".
 - Anyone starring the github repository :) 
