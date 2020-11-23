@@ -10,6 +10,7 @@ The project is based on pytsk which is a python binding for the sleuthkit. For m
 
 - Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
 - Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
+- Working on the suggestions from Joackim Metz: [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600) ....
 
 ## Features
 
@@ -70,11 +71,9 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 - [ ] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
 - [ ] add license for the testing image
 - [ ] add tests <---- (working on this...)
-- [x] add more docstrings to all methods and functions
 - [ ] specify more informations about the slack being extracted (btw allocated size file and last cluster)
 - [ ] document ram slack and disk slack (mention no volume slack yet)
 - [ ] check again this [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600)
-- [x] add dump directory name to argument "--dump"
 
 ## Special Thanks fly to 
 
