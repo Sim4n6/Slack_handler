@@ -1,8 +1,9 @@
 #!/bin/bash
 #
-# Script to generate disk images containing NTFS specimens
+# Bash script to generate disk images containing a unique NTFS partition 
+# with files copied from the provided input folder (very verbose).  
 #
-# USAGE: sudo bash gen-disk-img-specimens.sh di1.raw ../Govdocs1/myThread0
+# USAGE: sudo bash gen-disk-img-specimens.sh di1.raw ../Govdocs1/myThread0/
 
 EXIT_SUCCESS=0
 EXIT_FAILURE=1
@@ -32,10 +33,13 @@ assert_availability_binary parted
 # exit immediately with a none zero value if a command fails.
 set -e
 
+# permits glob to be expanded recursively
+shopt -s globstar
+
 # cli arguments
 TEST_IMG_NAME=$1 # eg: di.raw
 IMG_WITHOUT_EXT=$(echo "${TEST_IMG_NAME}" |awk -F'.' '{print $1}')
-DIR_TO_COPY=$2   # eg: ../Govdocs1/myThread0
+DIR_TO_COPY=$2   # eg: ../Govdocs1/myThread0/
 
 SECTOR_SIZE=512
 
@@ -44,20 +48,18 @@ compute_total_needed_size() {
 
     #local FILE_SIZE, NTFS_SYS_FILES, TO_ALIGN_PARTITIONS
     TOTAL_IMG_SIZE=0
-    for f in $(ls ${DIR_TO_COPY}); do
-        echo "/$f/ ... "
-        for fi in $(ls ${DIR_TO_COPY}/${f}); do
-            #echo "/${f}/${fi} <--"
-            FILE_SIZE=$(du -b ${DIR_TO_COPY}/${f}/${fi} | awk '{print $1}') # in bytes
-            #echo "$FILE_SIZE in bytes"
-            TOTAL_IMG_SIZE=$((TOTAL_IMG_SIZE +FILE_SIZE))
-        done
+    for f in "${DIR_TO_COPY}"**/*; do
+        echo "${f} ...";
+        if [ -f "$f" ]
+        then
+            FILE_SIZE=$(du -b "${f}" | awk '{print $1}') # in bytes
+            TOTAL_IMG_SIZE=$(( TOTAL_IMG_SIZE+FILE_SIZE ))
+        fi;
     done
 
     # add an upper approximate of NTFS SYSTEM files size.
     NTFS_SYS_FILES=$((3 * 1024 * 1024))
     TOTAL_IMG_SIZE=$((TOTAL_IMG_SIZE + NTFS_SYS_FILES))
-    sleep 3
 
     TO_ALIGN_PARTITIONS=2048 # in sectors
     TOTAL_IMG_SIZE=$((TOTAL_IMG_SIZE + TO_ALIGN_PARTITIONS * SECTOR_SIZE))
@@ -78,7 +80,7 @@ dd if=/dev/zero of="${TEST_IMG_NAME}" bs="${SECTOR_SIZE}" count=$((TOTAL_IMG_SIZ
 
 # the looping device that will be used
 FREE_DEV=$(losetup --find)
-echo "The free device is: s"
+echo "The free device is:"
 
 # set up and control the free looping device
 losetup --show "${FREE_DEV}" "${TEST_IMG_NAME}"
@@ -91,34 +93,23 @@ parted -s "${FREE_DEV}" print
 sleep 3
 
 mkntfs -F -q -L "label_${IMG_WITHOUT_EXT}" -s ${SECTOR_SIZE} "${FREE_DEV}p1"
-
 sleep 3
+
+# mount the unique partition and print everything
 mount "${FREE_DEV}p1" "${MOUNT_POINT}"
-
-# print everything
 lsblk -o NAME,FSTYPE,LABEL,UUID,MOUNTPOINT
-
 sleep 3
+
 # Copying ....
-copy_dir_content() {
-
-    for f in $(ls ${DIR_TO_COPY}); 
-    do
-        for fi in $(ls ${DIR_TO_COPY}/${f}); do
-            cp "${DIR_TO_COPY}/${f}/${fi}" "${MOUNT_POINT}/${fi}"
-        done
-    done
-
-}
-
-copy_dir_content;
+cp --verbose --recursive "${DIR_TO_COPY}" "${MOUNT_POINT}";
+sleep 3
 
 # unmount and delete the looping device
 umount "${MOUNT_POINT}"
 losetup --detach "${FREE_DEV}"
 
 # Copy and then Remove the working image file.
-cp "${TEST_IMG_NAME}" "../test_data/${TEST_IMG_NAME}"
-rm -f "${TEST_IMG_NAME}"
+cp --verbose "${TEST_IMG_NAME}" "../test_data/${TEST_IMG_NAME}"
+rm --verbose --force "${TEST_IMG_NAME}"
 
 exit ${EXIT_SUCCESS}
