@@ -110,20 +110,20 @@ def get_slack(f):
 
     #  multiple just clusters (no slack)
     if l_d_size == 0:
-        print("here", l_d_size, l_block)
+        # print("here", l_d_size, l_block)
         return None
     else:
         # slack space size
         s_size = blocksize - l_d_size
 
         # force reading the slack of the file by providing the FLAG_SLACK
-        print(l_block, s_size)
+        # print(l_block, s_size)
         data = f.read_random(
             l_block,
             s_size,
             pytsk3.TSK_FS_ATTR_TYPE_DEFAULT,
             -1,
-            pytsk3.TSK_FS_FILE_READ_FLAG_SLACK
+            pytsk3.TSK_FS_FILE_READ_FLAG_SLACK,
         )
 
         # construct a slack object
@@ -229,7 +229,9 @@ if __name__ == "__main__":
                 # directories in image fs from the root dir "/"
                 queue_all_dirs = []
                 directory = fs.open_dir(path="/")
-                processing(directory=directory, queue=queue_all_dirs, parent_names=["/"])
+                processing(
+                    directory=directory, queue=queue_all_dirs, parent_names=["/"]
+                )
 
     # pretty printing the all_slack files
     if arguments.pprint:
