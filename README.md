@@ -21,8 +21,9 @@ Implemented so far:
 - write file slacks details to a CSV file. 
 - support 'raw' images (EWF format in progress...)
 
-## Installation process for Debian/GNU
+## Installation process for Debian/GNU Linux
 
+- download the [latest release](https://github.com/Sim4n6/Slack_handler/releases/latest) 
 - create virtualenv 
 - clone pytsk [repository](https://github.com/py4n6/pytsk)
 - update the repo (get libtsk) ``python setup.py update``
@@ -46,12 +47,12 @@ Implemented so far:
 To use the script type: 
 
 ```
-usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d /DUMP/] [-c CSV] [-v] image
+usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d /DUMP/] [-c CSV] [-v] disk_image
 
 Handle the file slack spaces.
 
 positional arguments:
-  image
+  disk_image
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -68,7 +69,7 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 
 ## TODOs 
 
-- [ ] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
+- [x] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
 - [ ] add license for the testing image
 - [ ] add tests <---- (working on this...)
 - [ ] specify more informations about the slack being extracted (btw allocated size file and last cluster)
