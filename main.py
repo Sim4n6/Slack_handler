@@ -54,14 +54,12 @@ def processing(directory, queue, parent_names):
             parent_names.append(f.info.name.name.decode("UTF-8"))
 
             d = f.as_directory()
-
             # no recurse, to avoid circular loops:
             if d not in queue:
                 processing(d, queue, parent_names)
 
         elif is_fs_regfile(f):
-            # print("/".join([dir_name for dir_name in parent_names]), f.info.name.name.decode('UTF-8'), sep='/')
-            print(f"getting slack from ..... {f.info.name.name.decode('UTF-8')}")
+            # print(f"getting slack from ..... {f.info.name.name.decode('UTF-8')}")
             s = get_slack(f)
             if s is not None:
                 s.set_s_dirs(parent_names)
@@ -71,6 +69,7 @@ def processing(directory, queue, parent_names):
             continue
 
     queue.pop(-1)
+    parent_names.pop(-1)
 
 
 def print_partition_table(partition_table):

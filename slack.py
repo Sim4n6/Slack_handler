@@ -9,7 +9,7 @@ import hashlib
 
 
 class slack:
-    """ A slack class for details about RAM slack and Disk slack of a single file. """
+    """ A slack class for details about RAM slack and DISK slack of a single file. """
 
     def __init__(self, **kwargs):
 
