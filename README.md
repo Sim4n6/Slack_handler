@@ -1,9 +1,10 @@
 Slack_handler
 =============
 
-Slack_handler is a tool to dump file slacks in raw format and to extract file slack information to CSV format. 
+Slack_handler is a tool to extract file slacks in raw format and to write file slacks details to CSV format. The file slack concerned is: { RAM file slack + DISK file slack }. The file slack considered is both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters. In other words, the file slack considered herer is located within the last cluster of a file when its size is not multiple of the cluster size. By the way, no volume slack is considered by this tool.
 
 A Sleuthkit tool to check the slack space at the end of each file in a filesystem.  For more information: http://www.sleuthkit.org
+
 The project is based on pytsk which is a python binding for the sleuthkit. For more information: https://github.com/py4n6/pytsk
 
 ## History
@@ -15,11 +16,11 @@ The project is based on pytsk which is a python binding for the sleuthkit. For m
 ## Features
 
 Implemented so far:
-- display file slacks in LATIN-1 or Hex encoding.
+- display file slacks in LATIN-1 or Hex encoding to the console/terminal.
 - pretty print all found file slack data in the provided raw disk image.
-- dump all file slacks in the raw disk image to a directory.
-- write file slacks details to a CSV file. 
-- support 'raw' images (EWF format in progress...)
+- extract all file slacks in the raw disk image to a directory.
+- write file slacks details to a CSV file including the original file, the file slack size, the parent directories, etc.
+- support 'raw' disk images (EWF format in progress... )
 
 ## Installation process for Debian/GNU Linux
 
@@ -72,9 +73,11 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 - [x] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
 - [ ] add license for the testing image
 - [ ] add tests <---- (working on this...)
-- [ ] specify more informations about the slack being extracted (btw allocated size file and last cluster)
-- [ ] document ram slack and disk slack (mention no volume slack yet)
 - [ ] check again this [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600)
+
+## LICENSE
+
+For any details related to LICENSING, please feel free to read the file **LICENSE**.
 
 ## Special Thanks fly to 
 
