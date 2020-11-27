@@ -11,7 +11,6 @@ The project is based on pytsk which is a python binding for the sleuthkit. For m
 
 - Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
 - Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
-- Working on the suggestions from Joackim Metz: [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600) ....
 
 ## Features
 
@@ -70,8 +69,6 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 
 ## TODOs 
 
-- [x] add images for testing [ntfs-specimens](https://github.com/dfirlabs/ntfs-specimens) or [dfvfs-test-data](https://github.com/log2timeline/dfvfs/tree/master/test_data)
-- [ ] add license for the testing image
 - [ ] add tests <---- (working on this...)
 - [ ] check again this [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600)
 
@@ -81,6 +78,6 @@ For any details related to LICENSING, please feel free to read the file **LICENS
 
 ## Special Thanks fly to 
 
-- [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial feedback on the little tool.
+- [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial [feedback](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600) on the little tool.
 - [David Cowen](https://www.hecfblog.com/2015/02/automating-dfir-how-to-series-on.html) for the awesome serie of "How-to on programming using libtsk and python".
 - Anyone starring the github repository :) 
