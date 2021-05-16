@@ -80,4 +80,4 @@ For any details related to LICENSING, please feel free to read the file **LICENS
 
 - [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial [feedback](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600) on the little tool.
 - [David Cowen](https://www.hecfblog.com/2015/02/automating-dfir-how-to-series-on.html) for the awesome serie of "How-to on programming using libtsk and python".
-- Anyone starring the github repository :) 
+- Anyone star the github repository :) 
