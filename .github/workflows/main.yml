@@ -29,17 +29,17 @@ jobs:
       - name: Update pytsk
         run: |
             cd pytsk
-            python setup.py update
+            python3 setup.py update
           
       - name: Build pytsk
         run: |
           cd pytsk
-          python setup.py build
+          python3 setup.py build
           
       - name: Install pytsk
         run: |
           cd pytsk
-          sudo python setup.py install
+          sudo python3 setup.py install
           pip3 list | grep pytsk
                               
       - name: Checkout libewf
@@ -61,12 +61,12 @@ jobs:
       - name: Build libewf
         run: |
           cd libewf
-          python setup.py build
+          python3 setup.py build
           
       - name: Install libewf
         run: |
           cd libewf
-          sudo python setup.py install
+          sudo python3 setup.py install
           pip3 list
           
       - name: Checkout slack_handler
