@@ -32,8 +32,6 @@ Implemented so far:
 - ``pip list`` now you should see pytsk installed if everything is ok 
 - clone pyewf [repository](https://github.com/libyal/libewf) 
 - ``./synclibs.sh`` : Script that synchronizes the local library dependencies
-
-
 - ``./autogen.sh`` 
 - ``./configure --enable-python``
 - ``python setup.py build``
@@ -69,6 +67,7 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 
 - [ ] add tests <---- (working on this...)
 - [ ] check again this [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600)
+- [ ] cache github actions.
 
 ## LICENSE
 
