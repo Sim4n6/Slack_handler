@@ -68,7 +68,7 @@ jobs:
         run: |
           cd libewf
           sudo python setup.py install
-          pip list | grep libewf
+          pip list
           
       - name: setup slack_handler
         uses: actions/checkout@v2
