@@ -63,4 +63,5 @@ jobs:
       - name: test
         run: |
           pip install pytest
+          cd slack_handler
           pytest test_slack_handler.py
