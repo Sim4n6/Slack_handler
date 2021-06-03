@@ -1,4 +1,4 @@
-Slack_handler
+Slack_handler [![Build](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml)
 =============
 
 Slack_handler is a tool to extract file slacks in raw format and to write file slacks details to CSV format. The file slack concerned is: { RAM file slack + DISK file slack }. The file slack considered is both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters. In other words, the file slack considered herer is located within the last cluster of a file when its size is not multiple of the cluster size. By the way, no volume slack is considered by this tool.
