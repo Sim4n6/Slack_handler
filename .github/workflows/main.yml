@@ -52,8 +52,13 @@ jobs:
 
       - name: setup slack_handler
         uses: actions/checkout@v2
+        with:
+          path: 'slack_handler'
         
       - name: Run a multi-line script
         run: |
           sudo apt-get install tree
           tree -L 2
+          
+      - name: test
+        run: pytest test_slack_handler.py
