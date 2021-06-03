@@ -1,6 +1,6 @@
 # This is a basic workflow to Build and Test using Actions
 
-name: CI using Github Actions
+name: Build
 
 # Controls when the action will run. 
 on:
