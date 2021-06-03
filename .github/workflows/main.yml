@@ -18,12 +18,30 @@ jobs:
   build:
     runs-on: ubuntu-latest    
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
+      - name: setup pytsk
+        uses: actions/checkout@v2
         with:
           repository: 'py4n6/pytsk'
           path: 'pytsk'
-      - uses: actions/checkout@v2
+          
+      - name: update pytsk
+        run: |
+            cd pytsk
+            python setup.py update
+          
+      - name: build pytsk
+        run: |
+          cd pytsk
+          python setup.py build
+          
+      - name: install pytsk
+        run: |
+          cd pytsk
+          python setup.py install
+          pip list | grep pytsk
+                              
+      - name: setup libewf
+        uses: actions/checkout@v2
         with:
           repository: 'libyal/libewf'
           path: 'libewf'
@@ -32,8 +50,10 @@ jobs:
       - name: Run a one-line script
         run: ls
 
-      # Runs a set of commands using the runners shell
+      - name: setup slack_handler
+        uses: actions/checkout@v2
+        
       - name: Run a multi-line script
         run: |
           sudo apt-get install tree
-          tree -L 3
+          tree -L 2
