@@ -99,9 +99,7 @@ def print_partition_table(partition_table):
         # partition.start*512: (65536) - Represents the offset by multiplying the sector number  where the partition starts by 512 bytes to calculate the absolute position within the image where the partition begins.
         # partition.len: 1042432 - Represents the length in sectors that makes up this partition. If you where to again multiply this number by 512 you would get 533,725,184 which is 509 MegaBytes (divide 533,725,184 by 1024 once to get kilobytes, twice to get megabytes) and is the size of the partition found within the image.
         # http://www.sleuthkit.org/sleuthkit/docs/api-docs/4.9.0/structTSK__VS__PART__INFO.html
-        print(
-            f"{partition.addr}, {partition.desc}, {partition.start}s({partition.start*512}) {partition.len}",
-        )
+        print(f"{partition.addr}, {partition.desc}, {partition.start}s({partition.start*512}) {partition.len}")
     print()
 
 
