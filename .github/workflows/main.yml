@@ -61,4 +61,6 @@ jobs:
           tree -L 2
           
       - name: test
-        run: pytest test_slack_handler.py
+        run: |
+          pip install pytest
+          pytest test_slack_handler.py
