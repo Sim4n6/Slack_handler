@@ -74,7 +74,7 @@ For instance, to dump all file slacks to 'slacks/' folder and extract all the in
 
 ## LICENSE
 
-For any details related to LICENSING, please feel free to read the file **LICENSE**.
+Feel free to read the file **[LICENSE](https://github.com/Sim4n6/Slack_handler/blob/master/LICENSE)**.
 
 ## Special Thanks fly to 
 
