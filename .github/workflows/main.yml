@@ -64,7 +64,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           ls
-test:
+  test:
     needs: [ build-pytsk, build-pyewf ]
     runs-on: ubuntu-latest
 
