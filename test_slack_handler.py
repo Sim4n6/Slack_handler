@@ -43,7 +43,7 @@ def test__cli_print_partition_table():
 
 
 def test__cli_csv_file():
-    completedProcess = subprocess.Popen(["python3", "main.py", "--csv", "results0.csv", "./test_data/di1.raw"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", "main.py", "--csv", "results0.csv", "./test_data/di1.raw"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     with open("results0.csv", newline='') as csv_file:
