@@ -23,13 +23,13 @@ def test__files_presence(disk_image, expected_result):
 
 
 def test__cli_unfound_disk_img():
-    completedProcess = subprocess.run(["python", "main.py", "unfound_disk.img"], capture_output=True)
+    completedProcess = subprocess.run(["python", "main.py", "unfound_disk.img"], capture_output=True, shell=True)
     assert b"unfound_disk.img" in completedProcess.stdout
     assert b"not found" in completedProcess.stdout
 
 
 def test__cli_print_partition_table():
-    completedProcess = subprocess.run(["python", "main.py", "test_data/disk_img__scenario1_1__100_files.raw"], capture_output=True)
+    completedProcess = subprocess.run(["python", "main.py", "test_data/disk_img__scenario1_1__100_files.raw"], capture_output=True, shell=True)
     assert b"addr, desc, starts(start*512) len" in completedProcess.stdout
     # two partitions available
     assert b"2, b'NTFS / exFAT (0x07)', 2048s(1048576) 8192" in completedProcess.stdout
@@ -40,7 +40,7 @@ def test__cli_print_partition_table():
 
 
 def test__cli_csv_file():
-    completedProcess = subprocess.run(["python", "main.py", "-c", "results0.csv", "test_data/di1.raw"], capture_output=True)
+    completedProcess = subprocess.run(["python", "main.py", "-c", "results0.csv", "test_data/di1.raw"], capture_output=True, shell=True)
     with open("results0.csv", newline='') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         assert csv_reader.__next__() == ['slack filename', 'slack size', 'partition address', 'MD5', 'SHA1', 'parent dirs']
