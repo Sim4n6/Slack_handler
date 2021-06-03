@@ -40,7 +40,7 @@ jobs:
         run: |
           cd pytsk
           sudo python setup.py install
-          pip list | grep pytsk
+          pip3 list | grep pytsk
                               
       - name: Checkout libewf
         uses: actions/checkout@v2
@@ -67,7 +67,7 @@ jobs:
         run: |
           cd libewf
           sudo python setup.py install
-          pip list
+          pip3 list
           
       - name: Checkout slack_handler
         uses: actions/checkout@v2
@@ -76,6 +76,6 @@ jobs:
           
       - name: Test slack_handler
         run: |
-          pip install pytest
+          pip3 install pytest
           cd slack_handler
           pytest test_slack_handler.py
