@@ -37,7 +37,7 @@ jobs:
       - name: install pytsk
         run: |
           cd pytsk
-          python setup.py install
+          sudo python setup.py install
           pip list | grep pytsk
                               
       - name: setup libewf
