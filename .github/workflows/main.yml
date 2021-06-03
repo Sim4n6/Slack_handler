@@ -56,12 +56,12 @@ jobs:
           
       - name: build pyewf
         run: |
-          cd pyewf
+          cd libewf
           python setup.py build
           
       - name: install pyewf
         run: |
-          cd pytsk
+          cd libewf
           sudo python setup.py install
           pip list | grep pyewf
           
