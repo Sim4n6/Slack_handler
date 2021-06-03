@@ -62,6 +62,7 @@ optional arguments:
 ```
 
 For instance, to dump all file slacks to 'slacks/' folder and extract all the information to CSV format file from a raw image:
+
 ```python main.py -t raw --dump SLACKS_dir --csv slack_info.csv images/USB-NTFS.dd```
 
 ## TODOs 
