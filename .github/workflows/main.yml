@@ -47,9 +47,24 @@ jobs:
           path: 'libewf'
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: ls
-
+      - name: Sync libs
+        run: |
+          cd libewf
+          ./synclibs.sh
+          ./autogen.sh
+          ./configure --enable-python
+          
+      - name: build pyewf
+        run: |
+          cd pyewf
+          python setup.py build
+          
+      - name: install pyewf
+        run: |
+          cd pytsk
+          sudo python setup.py install
+          pip list | grep pyewf
+          
       - name: setup slack_handler
         uses: actions/checkout@v2
         with:
