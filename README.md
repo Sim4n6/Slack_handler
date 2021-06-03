@@ -41,10 +41,7 @@ Implemented so far:
 - check the installed modules `pip list`
 
 
-## How to use
-
-
-To use the script type: 
+## How to use 
 
 ```
 usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d /DUMP/] [-c CSV] [-v] disk_image
