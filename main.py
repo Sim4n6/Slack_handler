@@ -91,7 +91,7 @@ def processing(directory, queue, parent_names):
 def print_partition_table(partition_table):
     """ Print the partition table. """
 
-    print("\naddr, desc, starts(start*512) len", flush=True)
+    print("\naddr, desc, starts(start*512) len")
     for partition in partition_table:
         # partition.addr : Represents the partition number
         # parition.desc: NTFS (0x07)- Reprents the partition description including the type flag for NTFS
@@ -101,7 +101,6 @@ def print_partition_table(partition_table):
         # http://www.sleuthkit.org/sleuthkit/docs/api-docs/4.9.0/structTSK__VS__PART__INFO.html
         print(
             f"{partition.addr}, {partition.desc}, {partition.start}s({partition.start*512}) {partition.len}",
-            flush=True,
         )
     print()
 
@@ -202,9 +201,9 @@ if __name__ == "__main__":
             sys.exit(1)
 
     # print versions
-    print("SleuthKit lib version:", pytsk3.TSK_VERSION_STR, flush=True)
-    print("Module pytsk3 version:", pytsk3.get_version(), flush=True)
-    print("Module pyewf version:", pyewf.get_version(), flush=True)
+    print("SleuthKit lib version:", pytsk3.TSK_VERSION_STR)
+    print("Module pytsk3 version:", pytsk3.get_version())
+    print("Module pyewf version:", pyewf.get_version())
 
     # open image
     if arguments.image is not None:
