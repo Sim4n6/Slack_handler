@@ -50,7 +50,7 @@ jobs:
           path: 'libewf'
           
       - name: install some dependencies for libewf
-        run: sudo apt-get install build-essential debhelper fakeroot autotools-dev flex bison zlib1g-dev bzip2-dev libssl-dev libfuse-dev python-dev python-setuptools python3-dev python3-setuptools
+        run: sudo apt-get install build-essential debhelper fakeroot autotools-dev flex bison zlib1g-dev libbz2-dev libssl-dev libfuse-dev python-dev python-setuptools python3-dev python3-setuptools
       
       - name: Sync libs
         run: |
