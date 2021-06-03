@@ -23,15 +23,15 @@ def test__files_presence(disk_image, expected_result):
 
 
 def test__cli_unfound_disk_img():
-    completedProcess = subprocess.Popen(["python", "main.py", "unfound_disk.img"], stdout=subprocess.PIPE)
-    stdoutput = completedProcess.stdout.read()
+    proc = subprocess.Popen(["python", "main.py", "unfound_disk.img"], stdout=subprocess.PIPE)
+    stdoutput, error = proc.communicate()
     assert b"unfound_disk.img" in stdoutput
     assert b"not found" in stdoutput
 
 
 def test__cli_print_partition_table():
-    completedProcess = subprocess.Popen(["python", "main.py", "test_data/disk_img__scenario1_1__100_files.raw"], stdout=subprocess.PIPE)
-    stdoutput = completedProcess.stdout.read()
+    proc = subprocess.Popen(["python", "main.py", "test_data/disk_img__scenario1_1__100_files.raw"], stdout=subprocess.PIPE)
+    stdoutput, error = proc.communicate()
     assert b"addr, desc, starts(start*512) len" in stdoutput
     # two partitions available
     assert b"2, b'NTFS / exFAT (0x07)', 2048s(1048576) 8192" in stdoutput
