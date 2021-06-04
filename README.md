@@ -23,7 +23,7 @@ Implemented so far:
 - [ ] Simulate user behaviors in test disk images.
 - [ ] Generate more disk images for validation.
 
-## Installation process for Debian/GNU Linux
+## Installation on a Debian/GNU Linux
 
 - Create a Virtual environment
 - Download the [latest release](https://github.com/Sim4n6/Slack_handler/releases/latest) 
