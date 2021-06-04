@@ -20,7 +20,7 @@ Implemented so far:
 - [ ] cache and optimize Github actions.
 - [ ] Add support for disk images in AFF formats.
 - [ ] Optimize the way it locates the File slack space.
-- [ ] Simulate user behaviors in test disk images.
+- [ ] Simulate user behaviors in test disk images using a Bash script.
 - [ ] Generate more disk images for validation.
 
 ## Installation on a Debian/GNU Linux
