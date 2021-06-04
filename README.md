@@ -1,45 +1,53 @@
 Slack_handler [![Build](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml)
 =============
 
-Slack_handler is a tool to extract file slacks in raw format and to write file slacks details to CSV format. The file slack concerned is: { RAM file slack + DISK file slack }. The file slack considered is both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters. In other words, the file slack considered herer is located within the last cluster of a file when its size is not multiple of the cluster size. By the way, no volume slack is considered by this tool.
+Slack_handler is a python tool for extracting File slacks in raw format and writing their details to a CSV file. 
 
-A Sleuthkit tool to check the slack space at the end of each file in a filesystem.  For more information: http://www.sleuthkit.org
-
-The project is based on pytsk which is a python binding for the sleuthkit. For more information: https://github.com/py4n6/pytsk
-
-## History
-
-- Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
-- Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
+The File slacks considered are both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters.No volume slack is considered.
 
 ## Features
 
 Implemented so far:
-- display file slacks in LATIN-1 or Hex encoding to the console/terminal.
-- pretty print all found file slack data in the provided raw disk image.
-- extract all file slacks in the raw disk image to a directory.
-- write file slacks details to a CSV file including the original file, the file slack size, the parent directories, etc.
-- support 'raw' disk images (EWF format in progress... )
+- [x] extract all file slacks in the raw disk image to a directory.
+- [x] display File slacks in LATIN-1 or Hex encoding to the console/terminal.
+- [x] pretty print all found file slack data in the provided raw disk image.
+- [x] Write-out File slacks details to a CSV file including: the original file, the file slack size, the parent directories, MD5 and SHA1 hashes, etc.
+- [x] Support for 'RAW' disk images. 
+- [x] Add CI using Github action. 
+- [ ] EWF disk image format (in progress...).
+- [ ] add more tests (in progress... ).
+- [ ] Add relative/absolute location details to CSV report file.
+- [ ] cache and optimize Github actions.
+- [ ] Add support for disk images in AFF formats.
+- [ ] Optimize the way it locates the File slack space.
+- [ ] Simulate user behaviors in test disk images.
+- [ ] Generate more disk images for validation.
 
 ## Installation process for Debian/GNU Linux
 
-- download the [latest release](https://github.com/Sim4n6/Slack_handler/releases/latest) 
-- create virtualenv 
-- clone pytsk [repository](https://github.com/py4n6/pytsk)
+- Create a Virtual environment
+- Download the [latest release](https://github.com/Sim4n6/Slack_handler/releases/latest) 
+- Clone pytsk [repository](https://github.com/py4n6/pytsk)
 - update the repo (get libtsk) ``python setup.py update``
 - build (libtsk) ``python setup.py build`` 
 - install (which will install pytsk bindings) ``python setup.py ìnstall``
-- ``pip list`` now you should see pytsk installed if everything is ok 
+- ``pip list`` now you should see pytsk installed if everything is ok! 
 - clone pyewf [repository](https://github.com/libyal/libewf) 
 - ``./synclibs.sh`` : Script that synchronizes the local library dependencies
 - ``./autogen.sh`` 
 - ``./configure --enable-python``
 - ``python setup.py build``
 - ``python setup.py install`` 
-- check the installed modules `pip list`
 
+For further details, please check the steps of the job [Build](https://github.com/Sim4n6/Slack_handler/actions) used in Github actions process.
 
-## How to use 
+## Usage
+
+To dump all File slacks to 'slacks/' folder and extract all the information to CSV format file named 'report.csv' from a raw image 'USB-NTFS.dd' :
+
+```python main.py -t raw --dump slacks/ --csv report.csv images/USB-NTFS.dd```
+
+Help: 
 
 ```
 usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d /DUMP/] [-c CSV] [-v] disk_image
@@ -59,22 +67,16 @@ optional arguments:
   -v, --version         show program's version number and exit
 ```
 
-For instance, to dump all file slacks to 'slacks/' folder and extract all the information to CSV format file from a raw image:
-
-```python main.py -t raw --dump SLACKS_dir --csv slack_info.csv images/USB-NTFS.dd```
-
-## TODOs 
-
-- [ ] add tests <---- (working on this...)
-- [ ] check again this [conversation](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600)
-- [ ] cache github actions.
-
 ## LICENSE
 
 Feel free to read the file **[LICENSE](https://github.com/Sim4n6/Slack_handler/blob/master/LICENSE)**.
+
+## History
+
+- Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
+- Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
 
 ## Special Thanks fly to 
 
 - [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial [feedback](https://open-source-dfir.slack.com/archives/CBG3B0Y82/p1603636784070600) on the little tool.
 - [David Cowen](https://www.hecfblog.com/2015/02/automating-dfir-how-to-series-on.html) for the awesome serie of "How-to on programming using libtsk and python".
-- Anyone star the github repository :) 
