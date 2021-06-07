@@ -16,7 +16,7 @@ Implemented so far:
 - [x] Add CI using Github action. 
 - [ ] Make a function helper for MD5_calc and SHA1_calc in 'utils' module for factoring the code.
 - [ ] EWF disk image format (in progress...).
-- [ ] add more tests (in progress... ).
+- [ ] add more tests (in progress... 'test__file_slack_content' ).
 - [ ] Add relative/absolute location details to CSV report file.
 - [x] cache and optimize Github actions (cached mentioned Pipfile modules but not pytsk nor libewf).
 - [ ] Add support for disk images in AFF formats.
