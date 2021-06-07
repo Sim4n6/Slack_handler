@@ -68,7 +68,7 @@ jobs:
       - name: Install pytsk
         run: |
           cd pytsk
-          sudo python3 setup.py install
+          pipenv run pip install -e .
                               
       - name: Checkout libewf
         uses: actions/checkout@v2
@@ -90,7 +90,7 @@ jobs:
       - name: Install libewf
         run: |
           cd libewf
-          sudo python3 setup.py install
+          pipenv run pip install -e .
           
       - name: Check needed modules
         run: |
