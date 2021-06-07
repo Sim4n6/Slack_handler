@@ -39,7 +39,7 @@ jobs:
             ~/.local/share/virtualenvs
             ./pytsk/build/
             ./libewf/build/
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('slack_handler/Pipfile.lock') }}-${{ hashFiles('pytsk/version.txt') }}-{{ hashFiles('libewf/ChangLog') }}
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('slack_handler/Pipfile.lock') }}-${{ hashFiles('pytsk/version.txt') }}-${{ hashFiles('libewf/ChangLog') }}
           restore-keys: |
               ${{ runner.os }}-pipenv---
       
