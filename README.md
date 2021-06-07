@@ -74,8 +74,8 @@ Feel free to read the file **[LICENSE](https://github.com/Sim4n6/Slack_handler/b
 
 ## History
 
-- Original version: 1.0 Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
-- Current updated version: 1.1 Date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
+- Original version Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
+- Current updated version: 0.1 since date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
 
 ## Special Thanks fly to 
 
