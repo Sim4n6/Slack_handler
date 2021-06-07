@@ -58,17 +58,17 @@ jobs:
       - name: Update pytsk
         run: |
             cd pytsk
-            pipenv run python setup.py update
+            python3 setup.py update
           
       - name: Build pytsk
         run: |
           cd pytsk
-          pipenv run python setup.py build
+          python3 setup.py build
           
       - name: Install pytsk
         run: |
           cd pytsk
-          pipenv run python setup.py install
+          sudo python3 setup.py install
                               
       - name: Checkout libewf
         uses: actions/checkout@v2
@@ -90,11 +90,12 @@ jobs:
       - name: Install libewf
         run: |
           cd libewf
-          pipenv run python setup.py install
+          sudo python3 setup.py install
           
       - name: Check needed modules
         run: |
-          cd slack_handler
+          cd slack_handler/
+          pipenv run pip list
           pipenv run pip list | grep pytsk
           pipenv run pip list | grep libewf
           pipenv run pip list | grep pytest
