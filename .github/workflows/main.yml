@@ -92,6 +92,13 @@ jobs:
           cd libewf
           pipenv run python setup.py install
           
+      - name: Check needed modules
+        run: |
+          cd slack_handler
+          pipenv run pip list | grep pytsk
+          pipenv run pip list | grep libewf
+          pipenv run pip list | grep pytest
+        
       - name: Test slack_handler
         run: |
           cd slack_handler/
