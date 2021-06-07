@@ -17,6 +17,11 @@ jobs:
   build:
     runs-on: ubuntu-latest    
     steps:
+      - name: Checkout slack_handler
+        uses: actions/checkout@v2
+        with:
+          path: 'slack_handler'
+          
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -31,7 +36,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.local/share/virtualenvs
-          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('slack_handler/Pipfile.lock') }}
           restore-keys: |
               ${{ runner.os }}-pipenv-
       
@@ -90,11 +95,6 @@ jobs:
         run: |
           cd libewf
           sudo python3 setup.py install
-          
-      - name: Checkout slack_handler
-        uses: actions/checkout@v2
-        with:
-          path: 'slack_handler'
           
       - name: Test slack_handler
         run: |
