@@ -18,7 +18,7 @@ Implemented so far:
 - [ ] EWF disk image format (in progress...).
 - [ ] add more tests (in progress... ).
 - [ ] Add relative/absolute location details to CSV report file.
-- [ ] cache and optimize Github actions.
+- [ ] cache and optimize Github actions (cached mentioned Pipfile modules but not pytsk nor libewf).
 - [ ] Add support for disk images in AFF formats.
 - [ ] Optimize the way it locates the File slack space.
 - [ ] Simulate user behaviors in test disk images using a Bash script.
