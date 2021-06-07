@@ -63,12 +63,12 @@ jobs:
       - name: Build pytsk
         run: |
           cd pytsk
-          python3 setup.py build --verbose
+          python3 setup.py build
           
       - name: Install pytsk
         run: |
-          cd pytsk
-          pipenv run pip install -e .
+          cd slack_handler/
+          pipenv run pip install ../pytsk/
                               
       - name: Checkout libewf
         uses: actions/checkout@v2
@@ -85,18 +85,17 @@ jobs:
           ./synclibs.sh
           ./autogen.sh
           ./configure --enable-python3
-          python3 setup.py build --verbose
+          python3 setup.py build
           
       - name: Install libewf
         run: |
-          cd libewf
-          pipenv run pip install -e .
+          cd slack_handler/
+          pipenv run pip install ../libewf/
           
       - name: Check needed modules
         run: |
           cd slack_handler/
           pipenv run pip list
-          pip3 list
           pipenv run pip list | grep pytsk
           pipenv run pip list | grep libewf
           pipenv run pip list | grep pytest
