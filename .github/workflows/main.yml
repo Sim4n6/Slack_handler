@@ -43,6 +43,7 @@ jobs:
       - name: Run pipenv
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
+          cd slack_handler
           pipenv install --dev --deploy
       
       - name: Checkout pytsk
