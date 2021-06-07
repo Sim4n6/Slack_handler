@@ -35,7 +35,10 @@ jobs:
         id: cache-pipenv
         uses: actions/cache@v2
         with:
-          path: ~/.local/share/virtualenvs
+          path: |
+            ~/.local/share/virtualenvs
+            ./pytsk/build/
+            ./libewf/build/
           key: ${{ runner.os }}-pipenv-${{ hashFiles('slack_handler/Pipfile.lock') }}
           restore-keys: |
               ${{ runner.os }}-pipenv-
