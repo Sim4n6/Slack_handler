@@ -84,12 +84,12 @@ jobs:
           cd libewf
           ./synclibs.sh
           ./autogen.sh
-          ./configure --enable-python
+          ./configure --enable-python3
           
       - name: Build libewf
         run: |
           cd libewf
-          pipenv run python setup.py build
+          python3 setup.py build
           
       - name: Install libewf
         run: |
