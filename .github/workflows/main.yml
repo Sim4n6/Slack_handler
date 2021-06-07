@@ -79,16 +79,12 @@ jobs:
       - name: Install dependencies for libewf
         run: sudo apt-get install build-essential debhelper fakeroot autotools-dev flex bison zlib1g-dev libbz2-dev libssl-dev libfuse-dev python-dev python-setuptools python3-dev python3-setuptools
       
-      - name: Sync libs for libewf
+      - name: Sync libs and build libewf
         run: |
           cd libewf
           ./synclibs.sh
           ./autogen.sh
           ./configure --enable-python3
-          
-      - name: Build libewf
-        run: |
-          cd libewf
           python3 setup.py build
           
       - name: Install libewf
