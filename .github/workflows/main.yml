@@ -25,7 +25,6 @@ jobs:
       - name: Install pipenv
         run: |
           python3 -m pip install --upgrade pipenv wheel
-          pipenv shell
           
       - name: Cache it out
         id: cache-pipenv
