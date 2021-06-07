@@ -22,6 +22,18 @@ jobs:
         with:
           path: 'slack_handler'
           
+      - name: Checkout pytsk
+        uses: actions/checkout@v2
+        with:
+          repository: 'py4n6/pytsk'
+          path: 'pytsk'
+          
+      - name: Checkout libewf
+        uses: actions/checkout@v2
+        with:
+          repository: 'libyal/libewf'
+          path: 'libewf'
+          
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -48,13 +60,6 @@ jobs:
         run: |
           cd slack_handler
           pipenv install --dev --deploy
-      
-      - name: Checkout pytsk
-        if: steps.cache-pipenv.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: 'py4n6/pytsk'
-          path: 'pytsk'
           
       - name: Install build dependencies for pytsk
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
@@ -77,13 +82,6 @@ jobs:
         run: |
           cd slack_handler/
           pipenv run pip install ../pytsk/
-                              
-      - name: Checkout libewf
-        if: steps.cache-pipenv.outputs.cache-hit != 'true'
-        uses: actions/checkout@v2
-        with:
-          repository: 'libyal/libewf'
-          path: 'libewf'
           
       - name: Install dependencies for libewf
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
