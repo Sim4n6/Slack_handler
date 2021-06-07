@@ -51,6 +51,7 @@ def test__cli_csv_file():
         assert csv_reader.__next__() == ['slack filename', 'slack size', 'partition address', 'MD5', 'SHA1', 'parent dirs']
         assert len(list(csv_reader)) == 11
 
+# TODO def test__file_slack_content(): based on MD5 and SHA1.
 
 if __name__ == "__main__":
     test__cli_csv_file()
