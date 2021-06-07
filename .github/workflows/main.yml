@@ -43,7 +43,7 @@ jobs:
       - name: Run pipenv
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
-          pipenv install --dev
+          pipenv install --dev --deploy
       
       - name: Checkout pytsk
         uses: actions/checkout@v2
@@ -57,17 +57,17 @@ jobs:
       - name: Update pytsk
         run: |
             cd pytsk
-            python3 setup.py update
+            pipenv run python setup.py update
           
       - name: Build pytsk
         run: |
           cd pytsk
-          python3 setup.py build
+          pipenv run python setup.py build
           
       - name: Install pytsk
         run: |
           cd pytsk
-          sudo python3 setup.py install
+          pipenv run python setup.py install
           pip3 list | grep pytsk
                               
       - name: Checkout libewf
@@ -89,12 +89,12 @@ jobs:
       - name: Build libewf
         run: |
           cd libewf
-          python3 setup.py build
+          pipenv run python setup.py build
           
       - name: Install libewf
         run: |
           cd libewf
-          sudo python3 setup.py install
+          pipenv run python setup.py install
           
       - name: Test slack_handler
         run: |
