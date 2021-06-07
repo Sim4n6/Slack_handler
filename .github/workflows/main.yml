@@ -99,4 +99,4 @@ jobs:
       - name: Test slack_handler
         run: |
           cd slack_handler/
-          pytest tests/test_slack_handler.py
+          pipenv run pytest tests/test_slack_handler.py
