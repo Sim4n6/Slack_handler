@@ -2,13 +2,16 @@ from pathlib import Path
 import pytest
 import subprocess
 import csv
-
-from .src import utils
+import sys
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
 SRC_DIR = CWD.joinpath("src")
 SLACKS_DIR = CWD.joinpath("slacks")
+ 
+# appending a SRC_DIR path for importing utils module
+sys.path.append(SRC_DIR)
+import utils
 
 @pytest.mark.parametrize(
     "disk_image, expected_result",
