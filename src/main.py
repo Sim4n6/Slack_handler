@@ -164,7 +164,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-t",
         "--type",
-        default="raw",
+        required=True,
         help="Type of image. Currently supported options 'raw', 'ewf'.",
     )
     parser.add_argument(

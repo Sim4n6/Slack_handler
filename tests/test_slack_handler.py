@@ -31,7 +31,7 @@ def test__files_presence(disk_image, expected_result):
 
 def test__cli_unfound_disk_img():
     """ check std output in case of an unfound disk image """
-    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "unfound_disk.img"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "-t", "raw", "unfound_disk.img"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     assert b"unfound_disk.img" in stdoutput
@@ -40,7 +40,7 @@ def test__cli_unfound_disk_img():
 
 def test__cli_print_partition_table():
     """ check partition details display for a specific disk img """ 
-    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), TEST_DATA_DIR.joinpath("disk_img__scenario1_1__100_files.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "-t", "raw", TEST_DATA_DIR.joinpath("disk_img__scenario1_1__100_files.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     assert b"addr, desc, starts(start*512) len" in stdoutput
     # two partitions available
@@ -53,7 +53,7 @@ def test__cli_print_partition_table():
 
 def test__cli_csv_file():
     """ check whether results0.csv is generated correctly with 11 rows and a header. """ 
-    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--csv", "results0.csv", TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "-t", "raw", "--csv", "results0.csv", TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     with open("results0.csv", newline='') as csv_file:
@@ -62,7 +62,7 @@ def test__cli_csv_file():
         assert len(list(csv_reader)) == 11
 
 def test__files_slack_nbr():
-    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "-t", "raw", "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
@@ -71,7 +71,7 @@ def test__files_slack_nbr():
 
 def test__file_slack_fn():
     """ check a specific file slack filename found and format of all files dumped correspond to 'slack--XXXXXdd' """
-    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"),"-t", "raw",  "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     slacks_found_fn = [sf.name for sf in SLACKS_DIR.iterdir() if sf.is_file()]    
@@ -82,7 +82,7 @@ def test__file_slack_fn():
     
 def test__file_slack_content():
     """ Ensure all computed MD5 of the extracted file slacks are equals to the ones in the results.csv generated report. """
-    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, "--csv", "results.csv", TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "-t", "raw", "--dump", SLACKS_DIR, "--csv", "results.csv", TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
