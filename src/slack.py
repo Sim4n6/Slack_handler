@@ -5,8 +5,7 @@
 **************************************************************************************.
 """
 
-import hashlib
-
+import utils
 
 class slack:
     """ A slack class for details about RAM slack and DISK slack of a single file. """
@@ -41,15 +40,10 @@ class slack:
         """ Calculate the hash values (MD5/SHA1) depending on slack bytes. """
         # if not empty
         if self.s_bytes is not None:
-            md5hash = hashlib.md5()
-            md5hash.update(self.s_bytes)
-            self.s_md5 = md5hash.hexdigest()
-
-            sha1hash = hashlib.sha1()
-            sha1hash.update(self.s_bytes)
-            self.s_sha1 = sha1hash.hexdigest()
+            self.s_md5 = utils.MD5_calc(self.s_bytes)
+            self.s_sha1 = utils.SHA1_calc(self.s_bytes)
         else:
-            self.s_md5 = 0
+            self.s_md5 = 0 # FIXME should it be zero or something else ! 
             self.s_sha1 = 0
 
     def print_hash_values(self):
