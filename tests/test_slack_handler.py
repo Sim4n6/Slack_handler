@@ -68,6 +68,7 @@ def test__file_slack_content():
     print(stdoutput, error)
     slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
     
+    #compute MD5 hashs
     hashs_md5 = []
     for sf in slacks_found:
         f = open(sf, "rb")
@@ -76,11 +77,12 @@ def test__file_slack_content():
         hashs_md5.append(md5hash.hexdigest())
         f.close()
     
+    # retrieve stored MD5 hashs
     stored_md5 = []
     with open('results.csv', newline='') as csvfile:
         results_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
         for row in results_reader:
-            stored_md5.append(row["MD5"])
+            stored_md5.append(row[3])
      
     hashs_md5.sort()
     stored_md5.sort()
