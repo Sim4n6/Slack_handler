@@ -14,7 +14,7 @@ Implemented so far:
 - [x] Write-out File slacks details to a CSV file including: the original file, the file slack size, the parent directories, MD5 and SHA1 hashes, etc.
 - [x] Support for 'RAW' disk images. 
 - [x] Add CI using Github action. 
-- [ ] Make a function helper for MD5_calc and SHA1_calc in 'utils' module for factoring the code.
+- [x] Make a function helper for MD5_calc and SHA1_calc in 'utils' module for factoring the code.
 - [ ] EWF disk image format (in progress...).
 - [x] add more tests 'test__file_slack_nbr' and computed MD5 hashs.
 - [ ] add more tests 'test__file_slack_content'
