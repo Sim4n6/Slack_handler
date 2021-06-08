@@ -3,6 +3,7 @@ import pytest
 import subprocess
 import csv
 import sys
+import re
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
@@ -71,6 +72,8 @@ def test__file_slack_fn():
     print(stdoutput, error)
     slacks_found_fn = [sf.name for sf in SLACKS_DIR.iterdir() if sf.is_file()]    
     assert 'slack--001961.pdf.dd' in slacks_found_fn
+    for slack_f in slacks_found_fn:
+        assert re.match('^slack--*.dd$')
     
     
 def test__file_slack_content():
