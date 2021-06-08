@@ -2,7 +2,8 @@ from pathlib import Path
 import pytest
 import subprocess
 import csv
-import hashlib
+
+import utils 
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
@@ -70,12 +71,9 @@ def test__file_slack_content():
     #compute MD5 hashs
     hashs_md5 = []
     for sf in slacks_found:
-        f = open(sf, "rb")
-        md5hash = hashlib.md5()
-        md5hash.update(f.read())
-        hashs_md5.append(md5hash.hexdigest())
-        f.close()
-    
+        with open(sf, "rb") as f:
+            md5hash = utils.MD5_calc(f.read())
+        
     # retrieve stored MD5 hashs
     stored_md5 = []
     with open('results.csv', newline='') as csvfile:
