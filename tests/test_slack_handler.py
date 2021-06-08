@@ -2,6 +2,7 @@ from pathlib import Path
 import pytest
 import subprocess
 import csv
+import hashlib
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
@@ -53,14 +54,28 @@ def test__cli_csv_file():
         assert len(list(csv_reader)) == 11
 
 # TODO def test__file_slack_content(): based on MD5 and SHA1.
-def test__file_slack_content():
+def test__files_slack_nbr():
     proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
-    assert len(slacks_found) == 10
-    print(slacks_found)
+    assert len(slacks_found) == 11
     
+    
+def test__file_slack_content():
+    proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, "--csv", "results.csv", TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    stdoutput, error = proc.communicate()
+    print(stdoutput, error)
+    slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
+    for sf in slacks_found:
+        f = open(sf)
+        md5hash = hashlib.md5()
+        md5hash.update(f.read())
+        hashs_md5.append(md5hash.hexdigest())
+        f.close()
+        
+    assert len(hashs_md5) == 10
+    print(hashs_md5)
 
 if __name__ == "__main__":
     test__cli_csv_file()
