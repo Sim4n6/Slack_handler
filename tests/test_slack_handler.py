@@ -10,8 +10,7 @@ SRC_DIR = CWD.joinpath("src")
 SLACKS_DIR = CWD.joinpath("slacks")
  
 # appending a SRC_DIR path for importing utils module
-sys.path.insert(0, str(SRC_DIR))
-print(sys.path)
+sys.path.append(str(SRC_DIR))
 import utils
 
 @pytest.mark.parametrize(
@@ -77,6 +76,7 @@ def test__file_slack_content():
     for sf in slacks_found:
         with open(sf, "rb") as f:
             md5hash = utils.MD5_calc(f.read())
+            hashs_md5.append(md5hash)
         
     # retrieve stored MD5 hashs
     stored_md5 = []
