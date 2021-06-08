@@ -12,7 +12,7 @@ SLACKS_DIR = CWD.joinpath("slacks")
 # appending a SRC_DIR path for importing utils module
 sys.path.insert(0, SRC_DIR)
 print(sys.path)
-import utils
+from . import utils
 
 @pytest.mark.parametrize(
     "disk_image, expected_result",
