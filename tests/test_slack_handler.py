@@ -73,7 +73,7 @@ def test__file_slack_fn():
     slacks_found_fn = [sf.name for sf in SLACKS_DIR.iterdir() if sf.is_file()]    
     assert 'slack--001961.pdf.dd' in slacks_found_fn
     for slack_f in slacks_found_fn:
-        assert re.match('^slack--*.dd$')
+        assert re.match('^slack--.+\.dd$', slack_f)
     
     
 def test__file_slack_content():
