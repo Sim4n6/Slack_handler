@@ -65,12 +65,12 @@ def test__files_slack_nbr():
     assert len(slacks_found) == 11
     
 
-def test__file_slack_filename():
+def test__file_slack_fn():
     proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
-    slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]    
-    assert 'slack--filename.dd' in slacks_found
+    slacks_found_fn = [sf.name for sf in SLACKS_DIR.iterdir() if sf.is_file()]    
+    assert 'slack--001961.pdf.dd' in slacks_found_fn
     
     
 def test__file_slack_content():
