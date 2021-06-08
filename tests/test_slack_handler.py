@@ -3,7 +3,7 @@ import pytest
 import subprocess
 import csv
 
-from ... import src 
+from .. import src.utils
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
