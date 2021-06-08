@@ -58,7 +58,7 @@ def test__file_slack_content():
     stdoutput, error = proc.communicate()
     print(stdoutput, error)
     slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
-    assert len(slacks_found) == 11
+    assert len(slacks_found) == 10
     print(slacks_found)
     
 
