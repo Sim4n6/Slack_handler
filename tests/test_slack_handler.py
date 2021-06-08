@@ -80,9 +80,9 @@ def test__file_slack_content():
     # retrieve stored MD5 hashs
     stored_md5 = []
     with open('results.csv', newline='') as csvfile:
-        results_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        results_reader = csv.DictReader(csvfile)
         for row in results_reader:
-            stored_md5.append(row[3])
+            stored_md5.append(row['MD5'])
      
     hashs_md5.sort()
     stored_md5.sort()
