@@ -53,7 +53,6 @@ def test__cli_csv_file():
         assert csv_reader.__next__() == ['slack filename', 'slack size', 'partition address', 'MD5', 'SHA1', 'parent dirs']
         assert len(list(csv_reader)) == 11
 
-# TODO def test__file_slack_content(): based on MD5 and SHA1.
 def test__files_slack_nbr():
     proc = subprocess.Popen(["python3", SRC_DIR.joinpath("main.py"), "--dump", SLACKS_DIR, TEST_DATA_DIR.joinpath("di1.raw")], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdoutput, error = proc.communicate()
