@@ -75,9 +75,18 @@ def test__file_slack_content():
         md5hash.update(f.read())
         hashs_md5.append(md5hash.hexdigest())
         f.close()
+    
+    stored_md5 = []
+    with open('results.csv', newline='') as csvfile:
+        results_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        for row in results_reader:
+            stored_md5.append(row["MD5"])
+     
+    hashs_md5.sort()
+    stored_md5.sort()
+    assert hashs_md5 == stored_md5
+    
         
-    assert len(hashs_md5) == 10
-    print(hashs_md5)
 
 if __name__ == "__main__":
     test__cli_csv_file()
