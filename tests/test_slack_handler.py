@@ -68,7 +68,7 @@ def test__file_slack_content():
     print(stdoutput, error)
     slacks_found = [sf for sf in SLACKS_DIR.iterdir() if sf.is_file()]
     for sf in slacks_found:
-        f = open(sf)
+        f = open(sf, "rb")
         md5hash = hashlib.md5()
         md5hash.update(f.read())
         hashs_md5.append(md5hash.hexdigest())
