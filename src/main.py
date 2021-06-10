@@ -225,8 +225,8 @@ if __name__ == "__main__":
             filenames = pyewf.glob(arguments.image[0])
             ewf_handle.open(filenames)
             img_handler = ewf.ewf_Img_Info(ewf_handle)
-        else:
-            print("Not Supported Yet !")
+        elif arguments.type not in ["raw", "ewf"]:
+            print("Not Supported Yet ! Only 'raw' and 'ewf'. ", file=sys.stderr)
 
     # open the image volume for the partitions within it
     try:
@@ -268,10 +268,10 @@ if __name__ == "__main__":
     # writing out file slack spaces into seperate files located in 'slacks' directory
     if arguments.dump:
         for s in all_slacks:
-            cwd = Path().cwd()
-            slack_dir = cwd.joinpath(arguments.dump)
-            slack_dir.mkdir(exist_ok=True)
-            file_slack_name = slack_dir / s.get_s_name()
+            CWD = Path().cwd()
+            SLACKS_DIR = CWD.joinpath(arguments.dump)
+            SLACKS_DIR.mkdir(exist_ok=True)
+            file_slack_name = SLACKS_DIR.joinpath(s.get_s_name())
             file_slack_name.write_bytes(s.get_s_bytes())
 
     # print slack bytes with encoding 'latin-1', 'hex'.

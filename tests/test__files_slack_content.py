@@ -71,6 +71,7 @@ def test__file_slack_content(tmpdir, disk_img, disk_img_type):
     SLACKS_DIR = tmpdir.mkdir("slacks")
     REPORT_DIR = tmpdir.mkdir("report")
     CSV_REPORT = REPORT_DIR.join("results.csv")
+
     proc = subprocess.Popen(
         [
             "python3",
