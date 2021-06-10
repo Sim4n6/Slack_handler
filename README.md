@@ -15,6 +15,7 @@ Implemented so far:
 - [x] Support for 'RAW' disk images. 
 - [x] Add CI using Github action. 
 - [x] Make a function helper for MD5_calc and SHA1_calc in 'utils' module for factoring the code.
+- [ ] Add EWF disk images (in progress...) using a script generator.
 - [ ] EWF disk image format (in progress...).
 - [x] add more tests 'test__file_slack_nbr' and computed MD5 hashs.
 - [ ] add more tests 'test__file_slack_content' (inspection at binary level).
