@@ -48,12 +48,12 @@ def test__compare_hashs(disk_image, expected_md5):
 
 def test__cli_unfound_disk_img():
     """check std output in case of an unfound disk image"""
+
     proc = subprocess.Popen(
         ["python3", SRC_DIR.joinpath("main.py"), "--type", "raw", "unfound_disk.img"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
     stdoutput, stderror = proc.communicate()
-    print(stdoutput, stderror)
     assert b"unfound_disk.img" in stderror
     assert b"not found" in stderror
