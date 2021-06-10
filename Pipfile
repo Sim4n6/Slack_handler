@@ -10,6 +10,7 @@ flake8 = "*"
 black = "==21.5b2"
 pytest = "*"
 vulture = "*"
+rope = "*"
 
 [requires]
 python_version = "3.8"
