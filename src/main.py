@@ -27,15 +27,22 @@ from pathlib import Path
 from argparse import ArgumentParser
 import sys
 
-import pyewf
-import pytsk3
-
-import ewf
 import slack
+
+try:
+    import pyewf
+    import pytsk3
+    
+    import ewf
+except ModuleNotFoundError as e:
+    print("A module is not installed.", e, file=sys.stderr)
+    sys.exit(1)
+
+
 
 
 def is_fs_directory(f):
-    """ Check if an inode/addr is a filesystem directory."""
+    """Check if an inode/addr is a filesystem directory."""
 
     try:
         return f.info.meta.type == pytsk3.TSK_FS_META_TYPE_DIR
@@ -44,7 +51,7 @@ def is_fs_directory(f):
 
 
 def is_fs_regfile(f):
-    """ Check if an inode/addr is a regular file."""
+    """Check if an inode/addr is a regular file."""
 
     try:
         return f.info.meta.type == pytsk3.TSK_FS_META_TYPE_REG
@@ -89,7 +96,7 @@ def processing(directory, queue, parent_names):
 
 
 def print_partition_table(partition_table):
-    """ Print the partition table. """
+    """Print the partition table."""
 
     print("\naddr, desc, starts(start*512) len")
     for partition in partition_table:
@@ -100,12 +107,14 @@ def print_partition_table(partition_table):
         # partition.len: 1042432 - Represents the length in sectors that makes up this partition. If you where to again multiply this number by 512 you would get 533,725,184 which is 509 MegaBytes (divide 533,725,184 by 1024 once to get kilobytes, twice to get megabytes) and is the size of the partition found within the image.
         # http://www.sleuthkit.org/sleuthkit/docs/api-docs/4.9.0/structTSK__VS__PART__INFO.html
         # FIXME not all time 512 !
-        print(f"{partition.addr}, {partition.desc}, {partition.start}s({partition.start*512}) {partition.len}") 
+        print(
+            f"{partition.addr}, {partition.desc}, {partition.start}s({partition.start*512}) {partition.len}"
+        )
     print()
 
 
 def get_slack(f):
-    """ Return the file slack space of a single file. """
+    """Return the file slack space of a single file."""
 
     # walk all clusteres allocated by this file as in NTFS filesystem
     # each file has several attributes which can allocate multiple clusters.
@@ -124,7 +133,7 @@ def get_slack(f):
 
     #  multiple just clusters (no slack)
     if l_d_size == 0:
-        # print("here", l_d_size, l_block)
+        # TODO a dedicated test case to be added.
         return None
     else:
         # slack space size
@@ -196,7 +205,9 @@ if __name__ == "__main__":
     if arguments.image is not None:
         CWD = Path().cwd()
         if not CWD.joinpath(arguments.image[0]).exists():
-            print(f"The disk image '{arguments.image[0]}' is not found.")
+            print(
+                f"The disk image '{arguments.image[0]}' is not found.", file=sys.stderr
+            )
             sys.exit(1)
 
     # print versions
@@ -223,7 +234,9 @@ if __name__ == "__main__":
         print_partition_table(partition_table)
     except OSError as e:
         # there is no Volume in the image.
-        print("Maybe there is no Volume in the provided disk image.\n", e)
+        print(
+            "Maybe there is no Volume in the provided disk image.\n", e, file=sys.stderr
+        )
     else:
         for partition in partition_table:
             if b"NTFS" in partition.desc:
