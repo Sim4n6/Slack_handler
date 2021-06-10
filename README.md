@@ -48,7 +48,7 @@ For further details, please check the steps of the job [Build](https://github.co
 
 To dump all File slacks to 'slacks/' folder and extract all the information to CSV format file named 'report.csv' from a raw image 'USB-NTFS.dd' :
 
-```python main.py -t raw --dump slacks/ --csv report.csv images/USB-NTFS.dd```
+```python main.py --type raw --dump slacks/ --csv report.csv images/USB-NTFS.dd```
 
 Help: 
 
@@ -77,7 +77,7 @@ Feel free to read the file **[LICENSE](https://github.com/Sim4n6/Slack_handler/b
 ## History
 
 - Original version Date: 13/06/2012 by Sokratis Vidros <sokratis.vidros@gmail.com>
-- Current updated version: 0.1 since date 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
+- Current updated version: 0.1 since 25/10/2020 by ALJI Mohamed <sim4n6@gmail.com>
 
 ## Special Thanks fly to 
 
