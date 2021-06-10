@@ -66,7 +66,7 @@ def processing(directory, queue, parent_names):
         elif f.info.name.name[0:1] == b"$":
             continue
         elif is_fs_directory(f):
-            # print(f"{f.info.name.name}")
+            # print(f"----->{f.info.name.name}")
             parent_names.append(f.info.name.name.decode("UTF-8"))
 
             d = f.as_directory()
