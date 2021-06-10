@@ -3,7 +3,6 @@ import pytest
 import subprocess
 import csv
 import sys
-import re
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
@@ -15,32 +14,36 @@ import utils
 
 
 @pytest.mark.parametrize(
-    "disk_image, disk_image_type, nbr_reg_files",
+    "disk_img, disk_img_type, nbr_reg_files",
     [
         # TODO check me again because nbr regular files may be not correct.
+        # fls -F -r -o di | grep -v '\$' | wc -l
         ("di1.raw", "raw", 11),
         ("di3.e01", "ewf", 11),
         ("disk_img_ntfs-scenario6.1.raw", "raw", 22),
     ],
 )
-def test__cli_csv_file(disk_image, disk_image_type, nbr_reg_files):
-    """check whether results0.csv is generated correctly with enough rows and a header."""
+def test__cli_csv_file(tmpdir, disk_img, disk_img_type, nbr_reg_files):
+    """check whether CSV_REPORT is generated correctly with enough rows and a header for each disk img"""
+
+    REPORT_DIR = tmpdir.mkdir("report")
+    CSV_REPORT = REPORT_DIR.join(f"results-{disk_img}.csv")
     proc = subprocess.Popen(
         [
             "python3",
             SRC_DIR.joinpath("main.py"),
-            "-t",
-            disk_image_type,
+            "--type",
+            disk_img_type,
             "--csv",
-            f"results-{nbr_reg_files}.csv",
-            TEST_DATA_DIR.joinpath(disk_image),
+            CSV_REPORT,
+            TEST_DATA_DIR.joinpath(disk_img),
         ],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
     stdoutput, error = proc.communicate()
-    print(stdoutput, error)
-    with open(f"results-{nbr_reg_files}.csv", newline="") as csv_file:
+
+    with open(CSV_REPORT, newline="") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         assert csv_reader.__next__() == [
             "slack filename",
