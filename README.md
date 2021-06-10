@@ -19,6 +19,7 @@ Implemented so far:
 - [ ] EWF disk image format (in progress...).
 - [x] add more tests 'test__file_slack_nbr' and computed MD5 hashs.
 - [ ] add more tests 'test__file_slack_content' (inspection at binary level).
+- [ ] add a test case for no_file_slack file.
 - [ ] Add relative/absolute location details to CSV report file.
 - [x] cache and optimize Github actions (cached mentioned Pipfile modules but not pytsk nor libewf).
 - [ ] Add support for disk images in AFF formats.
