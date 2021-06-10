@@ -1,4 +1,4 @@
-Slack_handler [![Build](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml)
+Slack_handler [![Build & Test](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Sim4n6/Slack_handler/actions/workflows/main.yml)
 =============
 
 Slack_handler is a python tool for extracting File slacks in raw format and writing their details to a CSV file. 
