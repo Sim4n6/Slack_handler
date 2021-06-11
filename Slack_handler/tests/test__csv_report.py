@@ -16,12 +16,13 @@ import utils
     "disk_img, disk_img_type, nbr_reg_files",
     [
         # TODO check me again because nbr regular files may be not correct.
-        # fls -F -r -o di | grep -v '\$' | wc -l
+        # fls -F -r -o $((2048)) $f | grep -v '\$' | grep -v 'Identifier' | wc -l
         ("di1.raw", "raw", 11),
         ("di3.e01", "ewf", 11),
         ("di4.raw", "raw", 8),
         ("di5_42.raw", "raw", 42),
         ("di5_42.e01", "ewf", 42),
+
         ("disk_img_ntfs-scenario6.1.raw", "raw", 22),
     ],
 )

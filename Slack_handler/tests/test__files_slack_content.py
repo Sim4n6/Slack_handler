@@ -50,7 +50,13 @@ def test__files_slack_nbr(tmpdir, disk_img, disk_img_type, nbr_file_slacks):
 
 @pytest.mark.parametrize(
     "disk_img, disk_img_type",
-    [("di1.raw", "raw"), ("di3.e01", "ewf"), ("di4.raw", "raw"), ("di5_42.raw", "raw"), ("di5_42.e01", "ewf")],
+    [
+        ("di1.raw", "raw"),
+        ("di3.e01", "ewf"),
+        ("di4.raw", "raw"),
+        ("di5_42.raw", "raw"),
+        ("di5_42.e01", "ewf"),
+    ],
 )
 def test__file_slack_fn(tmpdir, disk_img, disk_img_type):
     """check a specific file slack filename found and format of all files dumped correspond to 'slack--XXXXXdd'"""
@@ -77,7 +83,14 @@ def test__file_slack_fn(tmpdir, disk_img, disk_img_type):
 
 
 @pytest.mark.parametrize(
-    "disk_img, disk_img_type", [("di1.raw", "raw"), ("di3.e01", "ewf"), ("di4.raw", "raw"), ("di5_42.raw", "raw"),  ("di5_42.e01", "ewf")]
+    "disk_img, disk_img_type",
+    [
+        ("di1.raw", "raw"),
+        ("di3.e01", "ewf"),
+        ("di4.raw", "raw"),
+        ("di5_42.raw", "raw"),
+        ("di5_42.e01", "ewf"),
+    ],
 )
 def test__file_slack_content(tmpdir, disk_img, disk_img_type):
     """Ensure all computed MD5 of the extracted file slacks are equals to the ones in the results.csv generated report."""
@@ -122,3 +135,46 @@ def test__file_slack_content(tmpdir, disk_img, disk_img_type):
     hashs_md5.sort()
     stored_md5.sort()
     assert hashs_md5 == stored_md5
+
+
+def test__not_use_same_dir():
+    """check if the default slacks_dir is used twice or more"""
+
+    proc1 = subprocess.Popen(
+        [
+            "python3",
+            SRC_DIR.joinpath("main.py"),
+            "--type",
+            "raw",
+            "--verbose",
+            TEST_DATA_DIR.joinpath("di1.raw"),
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    stdoutput1, stderror1 = proc1.communicate()
+
+    proc2 = subprocess.Popen(
+        [
+            "python3",
+            SRC_DIR.joinpath("main.py"),
+            "--type",
+            "raw",
+            "--verbose",
+            TEST_DATA_DIR.joinpath("di1.raw"),
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    stdoutput2, stderror2 = proc2.communicate()
+
+    s_output1 = stdoutput1.decode("utf-8")
+    s_output2 = stdoutput2.decode("utf-8")
+
+    s1 = s_output1.index("/tmp/slacks_")
+    s2 = s_output2.index("/tmp/slacks_")
+
+    e1 = s_output1.index("is the temporary output dir for file slacks.\n")
+    e2 = s_output2.index("is the temporary output dir for file slacks.\n")
+
+    assert s_output1[s1:e1] != s_output2[s2:e2]
