@@ -32,13 +32,11 @@ import slack
 try:
     import pyewf
     import pytsk3
-    
+
     import ewf
 except ModuleNotFoundError as e:
     print("A module is not installed.", e, file=sys.stderr)
     sys.exit(1)
-
-
 
 
 def is_fs_directory(f):
@@ -73,7 +71,8 @@ def processing(directory, queue, parent_names):
         elif f.info.name.name[0:1] == b"$":
             continue
         elif is_fs_directory(f):
-            # print(f"----->{f.info.name.name}")
+            if arguments.verbose:
+                print(f"Current dir: {f.info.name.name}")
             parent_names.append(f.info.name.name.decode("UTF-8"))
 
             d = f.as_directory()
@@ -82,7 +81,8 @@ def processing(directory, queue, parent_names):
                 processing(d, queue, parent_names)
 
         elif is_fs_regfile(f):
-            # print(f"getting slack from ..... {f.info.name.name.decode('UTF-8')}")
+            if arguments.verbose:
+                print(f"Getting file slack from: {f.info.name.name.decode('UTF-8')}")
             s = get_slack(f)
             if s is not None:
                 s.set_s_dirs(parent_names)
@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
     # commands and arguments
     # argparse https://docs.python.org/3/library/argparse.html#module-argparse
-    parser = ArgumentParser(description="Handle the file slack spaces.")
+    parser = ArgumentParser(description="Extract the file slack spaces.")
     parser.add_argument("image", metavar="disk image", nargs=1, action="store")
     parser.add_argument(
         "-e",
@@ -197,7 +197,14 @@ if __name__ == "__main__":
         default=None,
         help="Write file slacks information to a CSV file.",
     )
-    parser.add_argument("-v", "--version", action="version", version="v0.1")
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        default=False,
+        help="Control the verbosity of the output.",
+    )
+    parser.add_argument("--version", action="version", version="v0.1")
     arguments = parser.parse_args()
 
     all_slacks = []
@@ -225,8 +232,12 @@ if __name__ == "__main__":
             filenames = pyewf.glob(arguments.image[0])
             ewf_handle.open(filenames)
             img_handler = ewf.ewf_Img_Info(ewf_handle)
+        elif arguments.type == "aff":
+            print("Not Supported Yet ! ", file=sys.stderr)
+            sys.exit(1)
         elif arguments.type not in ["raw", "ewf"]:
             print("Not Supported Yet ! Only 'raw' and 'ewf'. ", file=sys.stderr)
+            sys.exit(1)
 
     # open the image volume for the partitions within it
     try:
