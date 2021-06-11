@@ -14,7 +14,17 @@ SRC_DIR = CWD.joinpath("src")
 sys.path.append(str(SRC_DIR))
 import utils
 
-@pytest.mark.parametrize("disk_img, disk_img_type, nbr_file_slacks", [("di1.raw", "raw", 11), ("di3.e01", "ewf", 11)])
+
+@pytest.mark.parametrize(
+    "disk_img, disk_img_type, nbr_file_slacks",
+    [
+        ("di1.raw", "raw", 11),
+        ("di3.e01", "ewf", 11),
+        ("di4.raw", "raw", 8),
+        ("di5_42.raw", "raw", 42),
+        ("di5_42.e01", "ewf", 42),
+    ],
+)
 def test__files_slack_nbr(tmpdir, disk_img, disk_img_type, nbr_file_slacks):
     """assert a correct number of file slacks per each disk img"""
 
@@ -39,7 +49,10 @@ def test__files_slack_nbr(tmpdir, disk_img, disk_img_type, nbr_file_slacks):
     assert len(files_found) == nbr_file_slacks
 
 
-@pytest.mark.parametrize("disk_img, disk_img_type", [("di1.raw", "raw"), ("di3.e01", "ewf")])
+@pytest.mark.parametrize(
+    "disk_img, disk_img_type",
+    [("di1.raw", "raw"), ("di3.e01", "ewf"), ("di4.raw", "raw"), ("di5_42.raw", "raw"), ("di5_42.e01", "ewf")],
+)
 def test__file_slack_fn(tmpdir, disk_img, disk_img_type):
     """check a specific file slack filename found and format of all files dumped correspond to 'slack--XXXXXdd'"""
 
@@ -60,11 +73,13 @@ def test__file_slack_fn(tmpdir, disk_img, disk_img_type):
     stdoutput, error = proc.communicate()
 
     files_found_fn = [sf.basename for sf in SLACKS_DIR.listdir() if sf.check(file=True)]
-    assert "slack--001961.pdf.dd" in files_found_fn
     for slack_f in files_found_fn:
         assert re.match("^slack--.+dd$", slack_f)
 
-@pytest.mark.parametrize("disk_img, disk_img_type", [("di1.raw", "raw"), ("di3.e01", "ewf")])
+
+@pytest.mark.parametrize(
+    "disk_img, disk_img_type", [("di1.raw", "raw"), ("di3.e01", "ewf"), ("di4.raw", "raw"), ("di5_42.raw", "raw"),  ("di5_42.e01", "ewf")]
+)
 def test__file_slack_content(tmpdir, disk_img, disk_img_type):
     """Ensure all computed MD5 of the extracted file slacks are equals to the ones in the results.csv generated report."""
 

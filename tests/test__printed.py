@@ -17,7 +17,9 @@ import utils
     [
         ("di1.raw", "raw", b"2, b'NTFS / exFAT (0x07)', 2048s(1048576) 12235"),
         ("di3.e01", "ewf", b"2, b'NTFS / exFAT (0x07)', 2048s(1048576) 12235"),
-        ("di2_100f.raw", "raw", b"3, b'NTFS / exFAT (0x07)', 10240s(5242880) 8192"),
+        ("di4.raw", "raw", b"2, b'NTFS / exFAT (0x07)', 128s(65536) 8192"),
+        ("di5_42.raw", "raw", b"2, b'NTFS / exFAT (0x07)', 128s(65536) 45056"),
+        ("di5_42.e01", "ewf", b"2, b'NTFS / exFAT (0x07)', 128s(65536) 45056"),
     ],
 )
 def test__cli_print_partition_table(disk_img, disk_img_type, in_stdoutput):
