@@ -8,19 +8,21 @@ The File slacks considered are both RAM and DISK file slacks which represent the
 ## Features
 
 Implemented so far:
-- [x] extract all file slacks in the raw disk image to a directory.
-- [x] display File slacks in LATIN-1 or Hex encoding to the console/terminal.
-- [x] pretty print all found file slack data in the provided raw disk image.
+- [x] extract all file slacks from raw or ewf disk image to a directory.
+- [x] display file slacks in LATIN-1 or Hex encoding to the console/terminal.
+- [x] pretty print all found file slack data in the provided disk image.
 - [x] Write-out File slacks details to a CSV file including: the original file, the file slack size, the parent directories, MD5 and SHA1 hashes, etc.
 - [x] Support for 'RAW' disk images. 
+- [x] Support for 'EWF' disk images. 
 - [x] Add CI using Github action. 
-- [x] Make a function helper for MD5_calc and SHA1_calc in 'utils' module for factoring the code.
-- [x] Add EWF disk image
+- [x] Add a helper function for MD5_calc and SHA1_calc in 'utils' module for factoring the code.
+- [x] Add EWF disk image to test_data.
 - [x] add more tests 'test__file_slack_nbr' and computed MD5 hashs.
+- [ ] fix shenanigans of compressed files.
 - [ ] add more tests 'test__file_slack_content' (inspection at binary level).
 - [ ] add a test case for no_file_slack file.
 - [ ] Add relative/absolute location details to CSV report file.
-- [x] cache and optimize Github actions (cached mentioned Pipfile modules but not pytsk nor libewf).
+- [x] cache and optimize Github actions.
 - [ ] Add support for disk images in AFF formats.
 - [ ] Optimize the way it locates the File slack space.
 - [ ] Simulate user behaviors in test disk images using a Bash script.
