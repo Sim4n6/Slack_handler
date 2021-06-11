@@ -5,13 +5,12 @@ import csv
 import sys
 
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
-SRC_DIR = CWD.joinpath("src")
+TEST_DATA_DIR = CWD.joinpath("Slack_handler").joinpath("test_data")
+SRC_DIR = CWD.joinpath("Slack_handler").joinpath("src")
 
 # appending a SRC_DIR path for importing utils module
 sys.path.append(str(SRC_DIR))
 import utils
-
 
 @pytest.mark.parametrize(
     "disk_img, disk_img_type, nbr_reg_files",

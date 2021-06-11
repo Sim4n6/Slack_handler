@@ -1,11 +1,12 @@
 from pathlib import Path
 import pytest
 import subprocess
+
 import sys
 
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
-SRC_DIR = CWD.joinpath("src")
+TEST_DATA_DIR = CWD.joinpath("Slack_handler").joinpath("test_data")
+SRC_DIR = CWD.joinpath("Slack_handler").joinpath("src")
 
 # appending a SRC_DIR path for importing utils module
 sys.path.append(str(SRC_DIR))
@@ -25,7 +26,7 @@ import utils
     ],
 )
 def test__files_presence(disk_image, expected_result):
-    """assert files presence """
+    """assert files presence"""
 
     test_file = TEST_DATA_DIR.joinpath(disk_image)
     assert test_file.exists() == expected_result
@@ -39,8 +40,7 @@ def test__files_presence(disk_image, expected_result):
         ("di3.e01", "ec4defa196f4c1af0b8ff3e7e6bb9a46"),
         ("di4.raw", "2347783ca48e55fae05f2b8c06618bf0"),
         ("di5_42.raw", "771409a8f22acaf197700b3d844ee0fa"),
-        ("di5_42.e01", "1e0cba3229d933a104f38bbfc657df68")
-
+        ("di5_42.e01", "1e0cba3229d933a104f38bbfc657df68"),
     ],
 )
 def test__compare_hashs(disk_image, expected_md5):

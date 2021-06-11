@@ -6,10 +6,9 @@ import sys
 import re
 
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
-SRC_DIR = CWD.joinpath("src")
+TEST_DATA_DIR = CWD.joinpath("Slack_handler").joinpath("test_data")
+SRC_DIR = CWD.joinpath("Slack_handler").joinpath("src")
 
-# FIXME styling ?
 # appending a SRC_DIR path for importing utils module
 sys.path.append(str(SRC_DIR))
 import utils

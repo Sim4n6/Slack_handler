@@ -1,15 +1,10 @@
 from pathlib import Path
 import pytest
 import subprocess
-import sys
 
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
-SRC_DIR = CWD.joinpath("src")
-
-# appending a SRC_DIR path for importing utils module
-sys.path.append(str(SRC_DIR))
-import utils
+TEST_DATA_DIR = CWD.joinpath("Slack_handler").joinpath("test_data")
+SRC_DIR = CWD.joinpath("Slack_handler").joinpath("src")
 
 
 @pytest.mark.parametrize(
