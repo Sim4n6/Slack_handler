@@ -27,6 +27,7 @@ Implemented so far:
 - [ ] Optimize the way it locates the File slack space.
 - [ ] Simulate user behaviors in test disk images using a Bash script.
 - [ ] Generate more disk images for validation.
+- [ ] add XML description file of each disk image using fiwalk or fls.
 
 ## Installation on a Debian/GNU Linux
 

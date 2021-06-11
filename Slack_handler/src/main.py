@@ -26,6 +26,7 @@ import pprint
 from pathlib import Path
 from argparse import ArgumentParser
 import sys
+import tempfile
 
 import slack
 
@@ -175,20 +176,23 @@ if __name__ == "__main__":
         "-t",
         "--type",
         required=True,
-        help="Type of image. Currently supported options 'raw', 'ewf'.",
+        help="Type of the disk image. Currently supported options 'raw' and 'ewf'.",
     )
     parser.add_argument(
         "-p",
         "--pprint",
         action="store_true",
-        help="Pretty printing of all file slack spaces found.",
+        help="Pretty print all found file slack spaces.",
     )
+
+    # create a temporary dir for slacks
+    tmpdir = tempfile.TemporaryDirectory(prefix="slacks_")
     parser.add_argument(
         "-d",
         "--dump",
         action="store",
-        default="slacks",
-        help="Dump file slack spaces of each file in raw format to '/DUMP/' directory.",
+        default=tmpdir.name,
+        help="Dump file slack spaces of each file in raw format to a directory if specified, by default temporary dir.",
     )
     parser.add_argument(
         "-c",
@@ -267,6 +271,7 @@ if __name__ == "__main__":
                 # directories in image fs from the root dir "/"
                 queue_all_dirs = []
                 directory = fs.open_dir(path="/")
+                
                 processing(
                     directory=directory, queue=queue_all_dirs, parent_names=["/"]
                 )
@@ -278,10 +283,12 @@ if __name__ == "__main__":
 
     # writing out file slack spaces into seperate files located in 'slacks' directory
     if arguments.dump:
+        if arguments.verbose:
+            print(f"{arguments.dump} is the temporary output dir for file slacks.")
+
         for s in all_slacks:
             CWD = Path().cwd()
             SLACKS_DIR = CWD.joinpath(arguments.dump)
-            SLACKS_DIR.mkdir(exist_ok=True)
             file_slack_name = SLACKS_DIR.joinpath(s.get_s_name())
             file_slack_name.write_bytes(s.get_s_bytes())
 
@@ -297,6 +304,9 @@ if __name__ == "__main__":
     #  handle csv argument
     if arguments.csv is not None:
         csv_filename = arguments.csv
+        if arguments.verbose:
+            print(f"Writing CSV report to '{arguments.csv}'.")
+
         with open(csv_filename, "w", newline="") as csvfile:
             fieldnames = [
                 "slack filename",
@@ -320,3 +330,5 @@ if __name__ == "__main__":
                         "parent dirs": s.get_s_dirs(),
                     }
                 )
+
+    tmpdir.cleanup()
