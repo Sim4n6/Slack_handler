@@ -3,9 +3,31 @@ name: Publish Python 🐍 distributions 📦 to TestPyPI and PyPI
 on: push
 
 jobs:
+  install-n-test:
+    name: Install current version and test it
+    runs-on: ubuntu-latest
+
+    steps: 
+      - uses: actions/checkout@master
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install requirements
+        run: pip install pytsk3 libewf-python pytest
+
+      - name: Install Slack_handler
+        run: pip install -e . 
+
+      - name: Run all tests
+        run: pytest -vvv tests/
+
   build-n-publish:
+    needs: install-n-test
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@master
