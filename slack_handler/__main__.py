@@ -208,7 +208,8 @@ def main():
         default=False,
         help="Control the verbosity of the output.",
     )
-    parser.add_argument("--version", action="version", version="v0.2.5")
+    parser.add_argument("--version", action="version", version=Path().cwd().joinpath("VERSION").read_text())
+
     global arguments
     arguments = parser.parse_args()
 
@@ -273,23 +274,23 @@ def main():
                 global sector
                 sector = fs.info.dev_bsize
                 print("NTFS Sector size: ", sector, "in bytes.\n")
-                    # open the directory node for recursiveness and enqueue all
-                    # directories in image fs from the root dir "/"
+                # open the directory node for recursiveness and enqueue all
+                # directories in image fs from the root dir "/"
                 queue_all_dirs = []
                 directory = fs.open_dir(path="/")
 
                 processing(
-                        partition,
-                        directory=directory,
-                        queue=queue_all_dirs,
-                        parent_names=["/"],
-                    )
+                    partition,
+                    directory=directory,
+                    queue=queue_all_dirs,
+                    parent_names=["/"],
+                )
 
         # pretty printing the all_slack files
     if arguments.pprint:
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(all_slacks)
-        
+
         # writing out file slack spaces into seperate files located in 'slacks' directory
     if arguments.dump:
         if arguments.verbose:
@@ -310,7 +311,7 @@ def main():
                 print(s_bytes.decode("latin-1"))
             elif arguments.encoding == "hex":
                 print(s_bytes.hex())
-    
+
     #  handle csv argument
     if arguments.csv is not None:
         csv_filename = arguments.csv
