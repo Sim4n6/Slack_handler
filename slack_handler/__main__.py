@@ -28,13 +28,13 @@ from argparse import ArgumentParser
 import sys
 import tempfile
 
-from slack_handler import slack
+import slack
 
 try:
     import pyewf
     import pytsk3
 
-    from slack_handler import ewf
+    import ewf
 except ModuleNotFoundError as e:
     print("A module is not installed.", e, file=sys.stderr)
     sys.exit(1)
@@ -208,7 +208,7 @@ def main():
         default=False,
         help="Control the verbosity of the output.",
     )
-    parser.add_argument("--version", action="version", version=Path().cwd().joinpath("VERSION").read_text())
+    parser.add_argument("--version", action="version", version="v0.2.5").read_text())
 
     global arguments
     arguments = parser.parse_args()

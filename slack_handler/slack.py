@@ -5,7 +5,7 @@
 **************************************************************************************.
 """
 
-from slack_handler import utils
+import utils
 
 
 class slack:
