@@ -28,8 +28,9 @@ Implemented so far:
 - [ ] Simulate user behaviors in test disk images using a Bash script.
 - [ ] Generate more disk images for validation.
 - [ ] add XML description file of each disk image using fiwalk or fls.
+- [ ] package everything.
 
-## Installation on a Debian/GNU Linux
+## Installation on a Debian/GNU Linux for developers
 
 - Create a Virtual environment
 - Download the [latest release](https://github.com/Sim4n6/Slack_handler/releases/latest) 
