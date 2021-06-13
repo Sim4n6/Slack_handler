@@ -58,7 +58,7 @@ def is_fs_regfile(f):
         return False
 
 
-def processing(directory, queue, parent_names):
+def processing(partition, directory, queue, parent_names):
     """Iterate over all files recursively in a all directories and get
     the slack on each file (only regular files and not filesystem metadata
     file)."""
@@ -79,12 +79,12 @@ def processing(directory, queue, parent_names):
             d = f.as_directory()
             # no recurse, to avoid circular loops:
             if d not in queue:
-                processing(d, queue, parent_names)
+                processing(partition, d, queue, parent_names)
 
         elif is_fs_regfile(f):
             if arguments.verbose:
                 print(f"Getting file slack from: {f.info.name.name.decode('UTF-8')}")
-            s = get_slack(f)
+            s = get_slack(partition, f)
             if s is not None:
                 s.set_s_dirs(parent_names)
                 all_slacks.append(s)
@@ -114,7 +114,7 @@ def print_partition_table(partition_table):
     print()
 
 
-def get_slack(f):
+def get_slack(partition, f):
     """Return the file slack space of a single file."""
 
     # walk all clusteres allocated by this file as in NTFS filesystem
@@ -160,7 +160,7 @@ def get_slack(f):
         return s
 
 
-if __name__ == "__main__":
+def main():
 
     # commands and arguments
     # argparse https://docs.python.org/3/library/argparse.html#module-argparse
@@ -209,19 +209,22 @@ if __name__ == "__main__":
         help="Control the verbosity of the output.",
     )
     parser.add_argument("--version", action="version", version="v0.1")
+    global arguments
     arguments = parser.parse_args()
 
+    global all_slacks
     all_slacks = []
 
     if arguments.image is not None:
         CWD = Path().cwd()
         if not CWD.joinpath(arguments.image[0]).exists():
             print(
-                f"The disk image '{arguments.image[0]}' is not found.", file=sys.stderr
+                f"The disk image '{arguments.image[0]}' is not found.",
+                file=sys.stderr,
             )
             sys.exit(1)
 
-    # print versions
+        # print versions
     print("SleuthKit lib version:", pytsk3.TSK_VERSION_STR)
     print("Module pytsk3 version:", pytsk3.get_version())
     print("Module pyewf version:", pyewf.get_version())
@@ -243,14 +246,16 @@ if __name__ == "__main__":
             print("Not Supported Yet ! Only 'raw' and 'ewf'. ", file=sys.stderr)
             sys.exit(1)
 
-    # open the image volume for the partitions within it
+        # open the image volume for the partitions within it
     try:
         partition_table = pytsk3.Volume_Info(img_handler)
         print_partition_table(partition_table)
     except OSError as e:
         # there is no Volume in the image.
         print(
-            "Maybe there is no Volume in the provided disk image.\n", e, file=sys.stderr
+            "Maybe there is no Volume in the provided disk image.\n",
+            e,
+            file=sys.stderr,
         )
     else:
         for partition in partition_table:
@@ -260,28 +265,32 @@ if __name__ == "__main__":
                 fs = pytsk3.FS_Info(img_handler, offset=(partition.start * 512))
 
                 #  The Cluster Size (blocksize) can be chosen when the volume is formatted.
+                global blocksize
                 blocksize = fs.info.block_size
                 print("NTFS Cluster size: ", blocksize, "in bytes.")
 
                 # get the sector size
+                global sector
                 sector = fs.info.dev_bsize
                 print("NTFS Sector size: ", sector, "in bytes.\n")
-
-                # open the directory node for recursiveness and enqueue all
-                # directories in image fs from the root dir "/"
+                    # open the directory node for recursiveness and enqueue all
+                    # directories in image fs from the root dir "/"
                 queue_all_dirs = []
                 directory = fs.open_dir(path="/")
-                
-                processing(
-                    directory=directory, queue=queue_all_dirs, parent_names=["/"]
-                )
 
-    # pretty printing the all_slack files
+                processing(
+                        partition,
+                        directory=directory,
+                        queue=queue_all_dirs,
+                        parent_names=["/"],
+                    )
+
+        # pretty printing the all_slack files
     if arguments.pprint:
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(all_slacks)
-
-    # writing out file slack spaces into seperate files located in 'slacks' directory
+        
+        # writing out file slack spaces into seperate files located in 'slacks' directory
     if arguments.dump:
         if arguments.verbose:
             print(f"{arguments.dump} is the temporary output dir for file slacks.")
@@ -289,10 +298,11 @@ if __name__ == "__main__":
         for s in all_slacks:
             CWD = Path().cwd()
             SLACKS_DIR = CWD.joinpath(arguments.dump)
+            SLACKS_DIR.mkdir(exist_ok=True)
             file_slack_name = SLACKS_DIR.joinpath(s.get_s_name())
             file_slack_name.write_bytes(s.get_s_bytes())
 
-    # print slack bytes with encoding 'latin-1', 'hex'.
+        # print slack bytes with encoding 'latin-1', 'hex'.
     if arguments.encoding is not None:
         for s in all_slacks:
             s_bytes = s.get_s_bytes()
@@ -300,7 +310,7 @@ if __name__ == "__main__":
                 print(s_bytes.decode("latin-1"))
             elif arguments.encoding == "hex":
                 print(s_bytes.hex())
-
+    
     #  handle csv argument
     if arguments.csv is not None:
         csv_filename = arguments.csv
@@ -332,3 +342,7 @@ if __name__ == "__main__":
                 )
 
     tmpdir.cleanup()
+
+
+if __name__ == "__main__":
+    main()
