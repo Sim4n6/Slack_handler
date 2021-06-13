@@ -24,4 +24,19 @@ Govdocs1/
 slacks-cnt/
 slacks-fn/
 slacks-nbr/
-Slack_handler/test_data/else/
+test_data/else/
+fiwalk-0.6.16/
+
+# Compiled python modules.
+*.pyc
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+
+
+build/
+dist/
+slack_handler.egg-info/
