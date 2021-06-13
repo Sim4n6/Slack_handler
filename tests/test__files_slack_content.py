@@ -4,6 +4,8 @@ import subprocess
 import csv
 import sys
 import re
+import shutil
+
 
 CWD = Path().cwd()
 TEST_DATA_DIR = CWD.joinpath("test_data")
@@ -31,8 +33,7 @@ def test__files_slack_nbr(tmpdir, disk_img, disk_img_type, nbr_file_slacks):
 
     proc = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             disk_img_type,
             "--dump",
@@ -100,8 +101,7 @@ def test__file_slack_content(tmpdir, disk_img, disk_img_type):
 
     proc = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             disk_img_type,
             "--dump",
@@ -141,8 +141,7 @@ def test__not_use_same_dir():
 
     proc1 = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             "raw",
             "--verbose",
@@ -190,8 +189,7 @@ def test__dump_dir_exists(dump_dir):
 
     proc = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             "raw",
             "--dump",
@@ -207,4 +205,4 @@ def test__dump_dir_exists(dump_dir):
     assert CWD.joinpath(dump_dir).exists()
     
     # cleanup
-    CWD.joinpath(dump_dir).rmdir()
+    shutil.rmtree(str(CWD.joinpath(dump_dir)))
