@@ -56,21 +56,23 @@ To dump all File slacks to 'slacks/' folder and extract all the information to C
 Help: 
 
 ```
-usage: main.py [-h] [-e ENCODING] [-t TYPE] [-p] [-d /DUMP/] [-c CSV] [-v] disk_image
+usage: main.py [-h] [-e ENCODING] -t TYPE [-p] [-d DUMP] [-c CSV] [-v] [--version] disk image
 
-Handle the file slack spaces.
+Extract the file slack spaces.
 
 positional arguments:
-  disk_image
+  disk image
 
 optional arguments:
   -h, --help            show this help message and exit
-  -e ENCODING, --encoding ENCODING Display slack space in LATIN-1 or Hex. Supported options 'latin-1', 'hex'.
-  -t TYPE, --type TYPE  Type of image. Currently supported options 'raw', 'ewf'.
-  -p, --pprint          Pretty printing of all file slack spaces found.
-  -d, --dump            Dump file slack spaces of each file in raw format to '/DUMP/' directory.
+  -e ENCODING, --encoding ENCODING
+                        Display slack space in LATIN-1 or Hex. Supported options 'latin-1', 'hex'.
+  -t TYPE, --type TYPE  Type of the disk image. Currently supported options 'raw' and 'ewf'.
+  -p, --pprint          Pretty print all found file slack spaces.
+  -d DUMP, --dump DUMP  Dump file slack spaces of each file in raw format to a directory if specified, by default temporary dir.
   -c CSV, --csv CSV     Write file slacks information to a CSV file.
-  -v, --version         show program's version number and exit
+  -v, --verbose         Control the verbosity of the output.
+  --version             show program's version number and exit
 ```
 
 ## LICENSE
