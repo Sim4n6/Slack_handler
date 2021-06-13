@@ -11,6 +11,8 @@ black = "==21.5b2"
 pytest = "*"
 vulture = "*"
 rope = "*"
+twine = "*"
+bump2version = "*"
 
 [requires]
 python_version = "3.8"
