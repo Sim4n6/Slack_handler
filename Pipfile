@@ -13,6 +13,7 @@ vulture = "*"
 rope = "*"
 twine = "*"
 bump2version = "*"
+build = "*"
 
 [requires]
 python_version = "3.8"
