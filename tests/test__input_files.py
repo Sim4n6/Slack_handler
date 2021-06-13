@@ -55,7 +55,7 @@ def test__cli_unfound_disk_img():
     """check std output in case of an unfound disk image"""
 
     proc = subprocess.Popen(
-        ["python3", SRC_DIR.joinpath("__main__.py"), "--type", "raw", "unfound_disk.img"],
+        ["slack_handler", "--type", "raw", "unfound_disk.img"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )

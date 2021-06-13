@@ -33,8 +33,7 @@ def test__cli_csv_file(tmpdir, disk_img, disk_img_type, nbr_reg_files):
     CSV_REPORT = REPORT_DIR.join(f"results-{disk_img}.csv")
     proc = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             disk_img_type,
             "--csv",

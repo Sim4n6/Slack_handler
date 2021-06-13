@@ -109,6 +109,12 @@ jobs:
           pipenv run pip list | grep pytsk
           pipenv run pip list | grep libewf
           pipenv run pip list | grep pytest
+      
+      - name: Install Slack_handler
+        run: | 
+          cd slack_handler/
+          pip install -e .
+
         
       - name: Run all tests
         run: |

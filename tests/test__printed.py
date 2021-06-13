@@ -21,8 +21,7 @@ def test__cli_print_partition_table(disk_img, disk_img_type, in_stdoutput):
     """check partition details display for a specific disk img"""
     proc = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             disk_img_type,
             TEST_DATA_DIR.joinpath(disk_img),

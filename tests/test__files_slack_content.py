@@ -64,8 +64,7 @@ def test__file_slack_fn(tmpdir, disk_img, disk_img_type):
     SLACKS_DIR = tmpdir.mkdir("slacks")
     proc = subprocess.Popen(
         [
-            "python3",
-            SRC_DIR.joinpath("__main__.py"),
+            "slack_handler",
             "--type",
             disk_img_type,
             "--dump",
@@ -206,3 +205,6 @@ def test__dump_dir_exists(dump_dir):
 
     # files_found_fn = [sf.basename for sf in SLACKS_DIR.listdir() if sf.check(file=True)]
     assert CWD.joinpath(dump_dir).exists()
+    
+    # cleanup
+    CWD.joinpath(dump_dir).rmdir()
