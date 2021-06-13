@@ -4,7 +4,7 @@ on: push
 
 jobs:
   install-n-test:
-    name: Install current version and test it
+    name: Install and Test current version
     runs-on: ubuntu-latest
 
     steps: 
@@ -19,7 +19,7 @@ jobs:
         run: pip install pytsk3 libewf-python pytest
 
       - name: Install Slack_handler
-        run: pip install -e . 
+        run: pip install -e .
 
       - name: Run all tests
         run: pytest -vvv tests/
