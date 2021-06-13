@@ -48,6 +48,11 @@ Implemented so far:
 
 For further details, please check the steps of the job [Build](https://github.com/Sim4n6/Slack_handler/actions) used in Github actions process.
 
+## Installation from Pypi (In progress ... )
+
+ - `pip3 install slack-handler`
+ - `slack_handler --version`
+
 ## Usage
 
 To dump all File slacks to 'slacks/' folder and extract all the information to CSV format file named 'report.csv' from a raw image 'USB-NTFS.dd' :
