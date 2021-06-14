@@ -2,6 +2,9 @@ name: Publish Python 🐍 distributions 📦 to TestPyPI and PyPI
 
 on: 
   push:
+  
+  release:
+    types: [created]
     
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -53,8 +56,8 @@ jobs:
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
     
-    - name: Publish distribution 📦 to PyPI
-      if: startsWith(github.ref, 'refs/tags/v')
+    - name: Publish distribution 📦 to PyPI (Release)
+      if: github.event_name == 'release' && github.event.action == 'created'
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.PYPI_TOKEN_SH }}
