@@ -9,7 +9,7 @@ with README_PATH.open() as f:
 
 setup(
     name="slack_handler",
-    version="v0.2.7",
+    version="v0.2.8",
     description="Python tool to extract File slacks from disk images.",
     url="https://github.com/Sim4n6/Slack_handler",
     long_description=README,
