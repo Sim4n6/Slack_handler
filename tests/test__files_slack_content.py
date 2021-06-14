@@ -169,8 +169,8 @@ def test__not_use_same_dir():
     s_output1 = stdoutput1.decode("utf-8")
     s_output2 = stdoutput2.decode("utf-8")
 
-    s1 = s_output1.index("/tmp/slacks_")
-    s2 = s_output2.index("/tmp/slacks_")
+    s1 = s_output1.index("slacks_")
+    s2 = s_output2.index("slacks_")
 
     e1 = s_output1.index("is the temporary output dir for file slacks.\n")
     e2 = s_output2.index("is the temporary output dir for file slacks.\n")
