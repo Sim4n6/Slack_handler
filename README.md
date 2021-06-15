@@ -50,6 +50,8 @@ For further details, please check the steps of the job [Build](https://github.co
 
 ## Installation from Pypi (In progress ... )
 
+
+The tool is hosted on [Pypi](https://pypi.org/project/slack-handler/)
  - `pip3 install slack-handler`
  - `slack_handler --version`
 
@@ -57,7 +59,7 @@ For further details, please check the steps of the job [Build](https://github.co
 
 To dump all File slacks to 'slacks/' folder and extract all the information to CSV format file named 'report.csv' from a raw image 'USB-NTFS.dd' :
 
-```python main.py --type raw --dump slacks/ --csv report.csv images/USB-NTFS.dd```
+```slack_handler --type raw --dump slacks/ --csv report.csv images/USB-NTFS.dd```
 
 Help: 
 
