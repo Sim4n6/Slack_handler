@@ -20,15 +20,15 @@ jobs:
           python-version: 3.8
 
       - name: Install requirements
-        run: python -m pip install --user pipenv 
+        run: python -m pip install --user wheel 
 
       - name: Install Slack_handler
-        run: pipenv install -e .
+        run: pip install --user -e .
 
       - name: Run all tests
         run: |
-          pipenv install pytest
-          pipenv run pytest -vvv tests/
+          pip install --user pytest
+          pytest -vvv tests/
 
   build-n-publish:
     needs: install-n-test
@@ -44,10 +44,10 @@ jobs:
         python-version: 3.8
         
     - name: Install pypa/build
-      run: pipenv install build
+      run: pip install --user build
      
     - name: Build a binary wheel and a source tarball
-      run: pipenv run build --sdist --wheel --outdir dist/
+      run: build --sdist --wheel --outdir dist/
     
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
