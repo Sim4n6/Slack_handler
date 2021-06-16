@@ -113,7 +113,7 @@ jobs:
       - name: Install Slack_handler
         run: | 
           cd slack_handler/
-          pip install -e --no-dependencies . 
+          pipenv run pip install --no-deps -e . 
 
         
       - name: Run all tests
