@@ -208,7 +208,7 @@ def main():
         default=False,
         help="Control the verbosity of the output.",
     )
-    parser.add_argument("--version", action="version", version="v0.2.6")
+    parser.add_argument("--version", action="version", version="v0.2.10")
 
     global arguments
     arguments = parser.parse_args()
