@@ -20,7 +20,7 @@ jobs:
           python-version: 3.8
 
       - name: Install requirements
-        run: pip install wheel pytsk3 libewf-python pytest
+        run: pip install wheel pytest
 
       - name: Install Slack_handler
         run: pip install -e .
