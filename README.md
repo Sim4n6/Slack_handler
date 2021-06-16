@@ -64,7 +64,7 @@ To dump all File slacks to 'slacks/' folder and extract all the information to C
 Help: 
 
 ```
-usage: main.py [-h] [-e ENCODING] -t TYPE [-p] [-d DUMP] [-c CSV] [-v] [--version] disk image
+usage: slack_handler [-h] [-e ENCODING] -t TYPE [-p] [-d DUMP] [-c CSV] [-v] [--version] disk image
 
 Extract the file slack spaces.
 
