@@ -98,4 +98,4 @@ Feel free to read the file **[LICENSE](https://github.com/Sim4n6/Slack_handler/b
 
 - [Joachim Metz](https://twitter.com/joachimmetz) for providing an initial feedback on the little tool related to the different types of disk slack space and the licensing.
 - [David Cowen](https://www.hecfblog.com/2015/02/automating-dfir-how-to-series-on.html) for the awesome serie of "How-to on programming using libtsk and python".
-- Any [feedback](https://github.com/Sim4n6/Slack_handler/issues) is a welcome.
+- Any feedback is a welcome via Github [issues](https://github.com/Sim4n6/Slack_handler/issues) or reach out via [The Open Source DFIR Slack community](https://open-source-dfir.slack.com).
