@@ -3,7 +3,9 @@ Slack_handler [![Build & Test](https://github.com/Sim4n6/Slack_handler/actions/w
 
 Slack_handler is a python tool for extracting File slacks in raw format and writing their details to a CSV file. 
 
-The File slacks considered are both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters.No volume slack is considered.
+The File slacks considered are both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters. No volume slack is considered.
+
+ - A presentation is available on [Youtube](https://www.youtube.com/watch?v=NRSIjeiStxE) (~17min).
 
 ## Features
 
