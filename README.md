@@ -6,6 +6,7 @@ Slack_handler is a python tool for extracting File slacks in raw format and writ
 The File slacks considered are both RAM and DISK file slacks which represent the data between the none multiple size of the file and the allocated size in clusters. No volume slack is considered.
 
  - A presentation is available on [Youtube](https://www.youtube.com/watch?v=NRSIjeiStxE) (~17min).
+ - A description article is [available](https://doi.org/10.1109/CyberSA52016.2021.9478197) on IEEE Xplore.
 
 ## Features
 
