@@ -6,11 +6,11 @@ import sys
 import re
 import shutil
 
-
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
+TEST_DATA_DIR = CWD.joinpath("tests").joinpath("test_data")
 SRC_DIR = CWD.joinpath("slack_handler")
-
+print(TEST_DATA_DIR)
+ 
 # appending a SRC_DIR path for importing utils module
 sys.path.append(str(SRC_DIR))
 import utils

@@ -3,7 +3,7 @@ import pytest
 import subprocess
 
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
+TEST_DATA_DIR = CWD.joinpath("tests").joinpath("test_data")
 SRC_DIR = CWD.joinpath("slack_handler")
 
 

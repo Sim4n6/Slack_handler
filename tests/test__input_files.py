@@ -1,14 +1,15 @@
 from pathlib import Path
 import pytest
 import subprocess
-
 import sys
 
+# test_data directory
 CWD = Path().cwd()
-TEST_DATA_DIR = CWD.joinpath("test_data")
-SRC_DIR = CWD.joinpath("slack_handler")
+TEST_DATA_DIR = CWD.joinpath("tests").joinpath("test_data")
 
 # appending a SRC_DIR path for importing utils module
+CWD = Path().cwd()
+SRC_DIR = CWD.joinpath("slack_handler")
 sys.path.append(str(SRC_DIR))
 import utils
 
@@ -49,16 +50,3 @@ def test__compare_hashs(disk_image, expected_md5):
     with open(test_file, "rb") as f:
         md5_hash = utils.MD5_calc(f.read())
     assert md5_hash == expected_md5
-
-
-def test__cli_unfound_disk_img():
-    """check std output in case of an unfound disk image"""
-
-    proc = subprocess.Popen(
-        ["slack_handler", "--type", "raw", "unfound_disk.img"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
-    stdoutput, stderror = proc.communicate()
-    assert b"unfound_disk.img" in stderror
-    assert b"not found" in stderror
